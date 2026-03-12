@@ -15,6 +15,7 @@ public class UserService {
     public UserModel registerUser(UserModel user){
         return userRepository.save(user);
     }
+    
 
     public UserModel login(String email, String password){
 
@@ -27,4 +28,6 @@ public class UserService {
 
         return user;
     }
+
+    
 }

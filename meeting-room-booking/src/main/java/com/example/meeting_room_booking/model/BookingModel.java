@@ -21,6 +21,7 @@ public class BookingModel {
     private LocalTime startTime;
     private LocalTime endTime;
 
+    // Getters
     public Long getId() {
         return id;
     }
@@ -33,6 +34,10 @@ public class BookingModel {
         return roomId;
     }
 
+    public LocalDate getDate() {
+        return date;
+    }
+
     public LocalTime getStartTime() {
         return startTime;
     }
@@ -41,23 +46,24 @@ public class BookingModel {
         return endTime;
     }
 
+    // Setters
     public void setUserId(Long userId){
-    this.userId = userId;
-}
+        this.userId = userId;
+    }
 
-public void setRoomId(Long roomId){
-    this.roomId = roomId;
-}
+    public void setRoomId(Long roomId){
+        this.roomId = roomId;
+    }
 
-public void setDate(LocalDate date){
-    this.date = date;
-}
+    public void setDate(LocalDate date){
+        this.date = date;
+    }
 
-public void setStartTime(LocalTime startTime){
-    this.startTime = startTime;
-}
+    public void setStartTime(LocalTime startTime){
+        this.startTime = startTime;
+    }
 
-public void setEndTime(LocalTime endTime){
-    this.endTime = endTime;
-}
+    public void setEndTime(LocalTime endTime){
+        this.endTime = endTime;
+    }
 }

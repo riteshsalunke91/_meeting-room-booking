@@ -1,11 +1,13 @@
 package com.example.meeting_room_booking.model;
 
+import java.time.LocalDate;
 import java.time.LocalTime;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+
 @Entity
 public class RoomModel {
 
@@ -16,9 +18,9 @@ private Long id;
 private String roomName;
 private String location;
 private int capacity;
-private String availableDate;
-private String startTime;
-private String endTime;
+private LocalDate availableDate;
+private LocalTime startTime;
+private LocalTime endTime;
 
 public Long getId() {
     return id;
@@ -52,27 +54,27 @@ public void setCapacity(int capacity) {
     this.capacity = capacity;
 }
 
-public String getAvailableDate() {
+public LocalDate getAvailableDate() {
     return availableDate;
 }
 
-public void setAvailableDate(String availableDate) {
+public void setAvailableDate(LocalDate availableDate) {
     this.availableDate = availableDate;
 }
 
-public String getStartTime() {
+public LocalTime getStartTime() {
     return startTime;
 }
 
-public void setStartTime(String startTime) {
+public void setStartTime(LocalTime startTime) {
     this.startTime = startTime;
 }
 
-public String getEndTime() {
+public LocalTime getEndTime() {
     return endTime;
 }
 
-public void setEndTime(String endTime) {
+public void setEndTime(LocalTime endTime) {
     this.endTime = endTime;
 }
 

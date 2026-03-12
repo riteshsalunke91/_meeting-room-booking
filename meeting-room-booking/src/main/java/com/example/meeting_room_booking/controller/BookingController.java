@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import com.example.meeting_room_booking.model.BookingModel;
 import com.example.meeting_room_booking.service.BookingService;
 
+@CrossOrigin(origins="*")
 @RestController
 @RequestMapping("/booking")
 public class BookingController {

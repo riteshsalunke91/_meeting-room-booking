@@ -8,6 +8,8 @@ import com.example.meeting_room_booking.dto.LoginRequest;
 import com.example.meeting_room_booking.model.UserModel;
 import com.example.meeting_room_booking.service.UserService;
 
+
+@CrossOrigin(origins="*")
 @RestController
 @RequestMapping("/auth")
 public class AuthController {

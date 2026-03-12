@@ -4,8 +4,10 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name = "users")
 public class UserModel {
 
     @Id
@@ -19,6 +21,7 @@ public class UserModel {
 
     public UserModel(){}
 
+    // Getters
     public Long getId() {
         return id;
     }
@@ -37,6 +40,11 @@ public class UserModel {
 
     public String getRole() {
         return role;
+    }
+
+    // Setters
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public void setName(String name) {

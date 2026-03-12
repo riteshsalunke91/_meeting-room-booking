@@ -3,6 +3,7 @@ function addRoom(){
 let roomName=document.getElementById("roomName").value;
 let location=document.getElementById("location").value;
 let capacity=document.getElementById("capacity").value;
+let availableDate=document.getElementById("availableDate").value;
 let startTime=document.getElementById("startTime").value;
 let endTime=document.getElementById("endTime").value;
 
@@ -19,14 +20,95 @@ body:JSON.stringify({
 roomName:roomName,
 location:location,
 capacity:capacity,
-availableDate:"2026-04-10",
+availableDate:availableDate,
 startTime:startTime,
 endTime:endTime
 
 })
 
+})
+.then(res=>res.json())
+.then(data=>{
+
+alert("Room Added Successfully");
+
 });
 
-alert("Room Added");
+}
+
+function loadRooms(){
+
+fetch("http://localhost:8080/room")
+
+.then(res=>res.json())
+
+.then(data=>{
+
+let div=document.getElementById("rooms");
+
+div.innerHTML="";
+
+data.forEach(room=>{
+
+div.innerHTML+=`
+
+<div class="room-card">
+
+<h3>${room.roomName}</h3>
+
+<p>Location: ${room.location}</p>
+
+<p>Capacity: ${room.capacity}</p>
+
+<button onclick="deleteRoom(${room.id})">
+Delete
+</button>
+
+</div>
+
+`;
+
+});
+
+});
+
+}
+
+
+function loadAllBookings(){
+
+fetch("http://localhost:8080/admin/bookings")
+
+.then(res=>res.json())
+
+.then(data=>{
+
+let div=document.getElementById("bookings");
+
+div.innerHTML="";
+
+data.forEach(b=>{
+
+div.innerHTML+=`
+
+<div class="room-card">
+
+<p>User ID: ${b.userId}</p>
+
+<p>Room ID: ${b.roomId}</p>
+
+<p>Date: ${b.date}</p>
+
+<p>Start: ${b.startTime}</p>
+
+<p>End: ${b.endTime}</p>
+
+</div>
+
+`;
+
+});
+
+});
 
 }

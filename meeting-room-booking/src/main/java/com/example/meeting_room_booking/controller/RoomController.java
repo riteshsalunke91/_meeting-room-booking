@@ -1,3 +1,4 @@
+
 package com.example.meeting_room_booking.controller;
 
 import java.util.List;
@@ -8,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import com.example.meeting_room_booking.model.RoomModel;
 import com.example.meeting_room_booking.service.RoomService;
 
+@CrossOrigin(origins="*")
 @RestController
 @RequestMapping("/room")
 public class RoomController {
@@ -16,6 +18,8 @@ public class RoomController {
     private RoomService roomService;
 
     // Get all rooms
+
+
     @GetMapping
     public List<RoomModel> getAllRooms(){
         return roomService.getAllRooms();
