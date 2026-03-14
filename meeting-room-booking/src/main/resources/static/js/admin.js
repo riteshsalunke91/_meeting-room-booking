@@ -36,44 +36,6 @@ alert("Room Added Successfully");
 
 }
 
-function loadRooms(){
-
-fetch("http://localhost:8080/room")
-
-.then(res=>res.json())
-
-.then(data=>{
-
-let div=document.getElementById("rooms");
-
-div.innerHTML="";
-
-data.forEach(room=>{
-
-div.innerHTML+=`
-
-<div class="room-card">
-
-<h3>${room.roomName}</h3>
-
-<p>Location: ${room.location}</p>
-
-<p>Capacity: ${room.capacity}</p>
-
-<button onclick="deleteRoom(${room.id})">
-Delete
-</button>
-
-</div>
-
-`;
-
-});
-
-});
-
-}
-
 
 function loadAllBookings(){
 

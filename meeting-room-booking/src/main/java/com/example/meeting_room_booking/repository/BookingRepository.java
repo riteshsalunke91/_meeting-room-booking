@@ -17,13 +17,22 @@ import com.example.meeting_room_booking.model.BookingModel;
     
 // } 
 
+// @Repository
+// public interface BookingRepository extends JpaRepository<BookingModel, Long> {
+
+//     List<BookingModel> findByUserId(Long userId);
+
+//     List<BookingModel> findByRoomId(Long roomId);
+
+//     List<BookingModel> findByRoomIdAndDate(Long roomId, LocalDate date);
+
+// }
+
 @Repository
-public interface BookingRepository extends JpaRepository<BookingModel, Long> {
+public interface BookingRepository extends JpaRepository<BookingModel, Long>{
 
-    List<BookingModel> findByUserId(Long userId);
+    List<BookingModel> findByRoom_Id(Long roomId);
 
-    List<BookingModel> findByRoomId(Long roomId);
-
-    List<BookingModel> findByRoomIdAndDate(Long roomId, LocalDate date);
+    List<BookingModel> findByUser_Id(Long userId);
 
 }

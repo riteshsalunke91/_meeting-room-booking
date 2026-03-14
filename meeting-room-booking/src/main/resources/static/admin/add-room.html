@@ -22,3 +22,33 @@
 
 </body>
 </html>
+
+function addRoom(){
+
+let roomName=document.getElementById("roomName").value;
+let location=document.getElementById("location").value;
+let capacity=document.getElementById("capacity").value;
+let availableDate=document.getElementById("availableDate").value;
+let startTime=document.getElementById("startTime").value;
+let endTime=document.getElementById("endTime").value;
+
+fetch("http://localhost:8080/admin/rooms",{
+method:"POST",
+headers:{
+"Content-Type":"application/json"
+},
+body:JSON.stringify({
+roomName:roomName,
+location:location,
+capacity:capacity,
+availableDate:availableDate,
+startTime:startTime,
+endTime:endTime
+})
+})
+.then(res=>res.json())
+.then(data=>{
+alert("Room Added Successfully");
+});
+
+}

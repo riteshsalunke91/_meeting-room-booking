@@ -1,21 +1,25 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Meeting Room Booking</title>
-<link rel="stylesheet" href="css/style.css">
+<title>Register</title>
+<link rel="stylesheet" href="../css/style.css">
 </head>
 
 <body>
 
-<div class="container">
+<div class="form-card">
 
-<h1>Meeting Room Booking System</h1>
+<h2>Register</h2>
 
-<a href="auth/login.html" class="btn">Login</a>
+<input type="text" id="name" placeholder="Name">
+<input type="email" id="email" placeholder="Email">
+<input type="password" id="password" placeholder="Password">
 
-<a href="auth/register.html" class="btn">Register</a>
+<button onclick="register()">Register</button>
 
 </div>
+
+<script src="../js/auth.js"></script>
 
 </body>
 </html>

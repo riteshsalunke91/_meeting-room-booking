@@ -1,12 +1,92 @@
+// package com.example.meeting_room_booking.model;
+
+// import java.time.LocalDate;
+// import java.time.LocalTime;
+
+// import jakarta.persistence.Entity;
+// import jakarta.persistence.GeneratedValue;
+// import jakarta.persistence.GenerationType;
+// import jakarta.persistence.Id;
+// import jakarta.persistence.JoinColumn;
+// import jakarta.persistence.ManyToOne;
+
+// @Entity
+// public class BookingModel {
+
+//     @Id
+//     @GeneratedValue(strategy = GenerationType.IDENTITY)
+//     private Long id;
+
+//     private Long userId;
+//     private Long roomId;
+//     private LocalDate date;
+//     private LocalTime startTime;
+//     private LocalTime endTime;
+
+//     // Getters
+//     public Long getId() {
+//         return id;
+//     }
+
+//     public Long getUserId() {
+//         return userId;
+//     }
+
+//     public Long getRoomId() {
+//         return roomId;
+//     }
+
+//     public LocalDate getDate() {
+//         return date;
+//     }
+
+//     public LocalTime getStartTime() {
+//         return startTime;
+//     }
+
+//     public LocalTime getEndTime() {
+//         return endTime;
+//     }
+
+//     // Setters
+//     public void setUserId(Long userId){
+//         this.userId = userId;
+//     }
+
+//     public void setRoomId(Long roomId){
+//         this.roomId = roomId;
+//     }
+
+//     public void setDate(LocalDate date){
+//         this.date = date;
+//     }
+
+//     public void setStartTime(LocalTime startTime){
+//         this.startTime = startTime;
+//     }
+
+//     public void setEndTime(LocalTime endTime){
+//         this.endTime = endTime;
+//     }
+
+
+//     @ManyToOne
+// @JoinColumn(name="user_id")
+// private UserModel user;
+
+// @ManyToOne
+// @JoinColumn(name="room_id")
+// private RoomModel room;
+
+// }
+
+
 package com.example.meeting_room_booking.model;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
 public class BookingModel {
@@ -15,23 +95,24 @@ public class BookingModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Long userId;
-    private Long roomId;
     private LocalDate date;
+
     private LocalTime startTime;
+
     private LocalTime endTime;
 
+    @ManyToOne
+    @JoinColumn(name="user_id")
+    private UserModel user;
+
+    @ManyToOne
+    @JoinColumn(name="room_id")
+    private RoomModel room;
+
     // Getters
+
     public Long getId() {
         return id;
-    }
-
-    public Long getUserId() {
-        return userId;
-    }
-
-    public Long getRoomId() {
-        return roomId;
     }
 
     public LocalDate getDate() {
@@ -46,24 +127,34 @@ public class BookingModel {
         return endTime;
     }
 
+    public UserModel getUser() {
+        return user;
+    }
+
+    public RoomModel getRoom() {
+        return room;
+    }
+
     // Setters
-    public void setUserId(Long userId){
-        this.userId = userId;
-    }
 
-    public void setRoomId(Long roomId){
-        this.roomId = roomId;
-    }
-
-    public void setDate(LocalDate date){
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 
-    public void setStartTime(LocalTime startTime){
+    public void setStartTime(LocalTime startTime) {
         this.startTime = startTime;
     }
 
-    public void setEndTime(LocalTime endTime){
+    public void setEndTime(LocalTime endTime) {
         this.endTime = endTime;
     }
+
+    public void setUser(UserModel user) {
+        this.user = user;
+    }
+
+    public void setRoom(RoomModel room) {
+        this.room = room;
+    }
+
 }
