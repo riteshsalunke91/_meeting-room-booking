@@ -1,9 +1,11 @@
+
+
 function addRoom(){
 
 let roomName=document.getElementById("roomName").value;
 let location=document.getElementById("location").value;
 let capacity=document.getElementById("capacity").value;
-let availableDate=document.getElementById("availableDate").value;
+let date=document.getElementById("availableDate").value;
 let startTime=document.getElementById("startTime").value;
 let endTime=document.getElementById("endTime").value;
 
@@ -16,25 +18,23 @@ headers:{
 },
 
 body:JSON.stringify({
-
 roomName:roomName,
 location:location,
 capacity:capacity,
-availableDate:availableDate,
+availableDate:date,
 startTime:startTime,
 endTime:endTime
-
 })
 
 })
 .then(res=>res.json())
 .then(data=>{
-
 alert("Room Added Successfully");
-
 });
 
 }
+
+
 
 
 function loadAllBookings(){

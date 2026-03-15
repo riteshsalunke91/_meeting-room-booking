@@ -27,17 +27,35 @@ public class AuthController {
     }
 
     // Register API
-    @PostMapping("/register")
-    public UserModel registerUser(@RequestBody RegisterRequest request){
+//     @PostMapping("/register")
+//     public UserModel registerUser(@RequestBody RegisterRequest request){
 
-        UserModel user = new UserModel();
+//         UserModel user = new UserModel();
 
-        user.setName(request.getName());
-        user.setEmail(request.getEmail());
-        user.setPassword(request.getPassword());
-        user.setRole("USER");
+//         user.setName(request.getName());
+//         user.setEmail(request.getEmail());
+//         user.setPassword(request.getPassword());
+//        user.setRole("USER");
+//         user.setRole(request.getRole());
 
-        return service.registerUser(user);
+//         return service.registerUser(user);
 
-    }
+//     }
+// }
+
+
+@PostMapping("/register")
+public UserModel registerUser(@RequestBody RegisterRequest request){
+
+UserModel user = new UserModel();
+
+user.setName(request.getName());
+user.setEmail(request.getEmail());
+user.setPassword(request.getPassword());
+user.setRole(request.getRole());
+
+return service.registerUser(user);
+
+}
+
 }
