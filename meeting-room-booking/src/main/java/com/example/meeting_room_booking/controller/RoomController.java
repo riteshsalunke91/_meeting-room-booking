@@ -37,3 +37,24 @@ public class RoomController {
         return roomService.checkAvailability();
     }
 }
+
+// @RestController
+// @RequestMapping("/admin")
+// @CrossOrigin("*")
+// public class RoomController {
+
+//     @Autowired
+//     private RoomRepository repo;
+
+//     // ADD ROOM
+//     @PostMapping("/rooms")
+//     public RoomModel addRoom(@RequestBody RoomModel room){
+//         return repo.save(room);
+//     }
+
+//     // GET ALL ROOMS
+//     @GetMapping("/rooms")
+//     public List<RoomModel> getRooms(){
+//         return repo.findAll();
+//     }
+// }

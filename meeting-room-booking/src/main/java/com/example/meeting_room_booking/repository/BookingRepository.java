@@ -26,7 +26,7 @@ import com.example.meeting_room_booking.model.BookingModel;
 
 //     List<BookingModel> findByRoomIdAndDate(Long roomId, LocalDate date);
 
-// }
+//}
 
 @Repository
 public interface BookingRepository extends JpaRepository<BookingModel, Long>{
@@ -36,3 +36,4 @@ public interface BookingRepository extends JpaRepository<BookingModel, Long>{
     List<BookingModel> findByUser_Id(Long userId);
 
 }
+

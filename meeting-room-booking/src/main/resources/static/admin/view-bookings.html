@@ -11,6 +11,28 @@
 
 <div id="bookings"></div>
 
+<script>
+
+fetch("http://localhost:8080/admin/bookings")
+
+.then(res=>res.json())
+
+.then(data=>{
+
+let div=document.getElementById("bookings");
+
+data.forEach(b=>{
+
+div.innerHTML+=`
+<p>User: ${b.userId} | Room: ${b.roomId} | Date: ${b.date}</p>
+`;
+
+});
+
+});
+
+</script>
+
 <script src="../js/admin.js"></script>
 
 </body>

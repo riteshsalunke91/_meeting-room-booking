@@ -12,6 +12,55 @@
 
 <div id="rooms"></div>
 
+<script>
+
+fetch("http://localhost:8080/admin/rooms")
+
+.then(res=>res.json())
+
+.then(data=>{
+
+let div=document.getElementById("rooms");
+
+data.forEach(r=>{
+
+div.innerHTML+=`
+<div>
+<p>${r.roomName}</p>
+<p>${r.availableDate}</p>
+<button onclick="bookRoom(${r.id})">Book</button>
+</div>
+`;
+
+});
+
+});
+
+function bookRoom(roomId){
+
+let userId = localStorage.getItem("userId");
+
+fetch("http://localhost:8080/user/book",{
+
+method:"POST",
+
+headers:{
+"Content-Type":"application/json"
+},
+
+body:JSON.stringify({
+userId:userId,
+roomId:roomId
+})
+
+});
+
+alert("Booked!");
+
+}
+
+</script>
+
 <script src="../js/user.js"></script>
 
 <script>

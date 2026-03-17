@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import com.example.meeting_room_booking.model.UserModel;
 import com.example.meeting_room_booking.repository.UserRepository;
 
+
 // @Service
 // public class UserService {
 
@@ -15,44 +16,45 @@ import com.example.meeting_room_booking.repository.UserRepository;
 //     public UserModel registerUser(UserModel user){
 //         return userRepository.save(user);
 //     }
-    
 
-//     public UserModel login(String email, String password){
+// public UserModel login(String email,String password){
 
-//         UserModel user = userRepository.findByEmail(email)
-//                 .orElseThrow(() -> new RuntimeException("User not found"));
+// UserModel user = userRepository.findByEmail(email)
+// .orElse(null);
 
-//         if(!user.getPassword().equals(password)){
-//             throw new RuntimeException("Invalid password");
-//         }
-
-//         return user;
-//     }
-
-    
+// if(user==null){
+// throw new RuntimeException("User not found");
 // }
 
+// if(!user.getPassword().equals(password)){
+// throw new RuntimeException("Invalid password");
+// }
+
+// return user;
+
+// }
+
+// }
 
 @Service
 public class UserService {
 
-    @Autowired
-    private UserRepository userRepository;
+@Autowired
+private UserRepository repo;
 
-    public UserModel registerUser(UserModel user){
-        return userRepository.save(user);
-    }
+public UserModel login(String email,String password){
 
-    public UserModel login(String email, String password){
+UserModel user = repo.findByEmail(email).orElse(null);
 
-        UserModel user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+if(user==null){
+throw new RuntimeException("User not found");
+}
 
-        if(!user.getPassword().equals(password)){
-            throw new RuntimeException("Invalid password");
-        }
+if(!user.getPassword().equals(password)){
+throw new RuntimeException("Wrong password");
+}
 
-        return user;
-    }
+return user;
+}
 
 }
