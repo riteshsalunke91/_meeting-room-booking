@@ -6,35 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import com.example.meeting_room_booking.model.BookingModel;
-import com.example.meeting_room_booking.service.BookingService;
+import com.example.meeting_room_booking.repository.BookingRepository;
+// import com.example.meeting_room_booking.service.BookingService;
 
-// @CrossOrigin(origins="*")
-// @RestController
-// @RequestMapping("/booking")
-// public class BookingController {
 
-//     @Autowired
-//     private BookingService bookingService;
 
-//     // Book a room
-//     @PostMapping
-//     public BookingModel bookRoom(@RequestBody BookingModel booking){
-//         return bookingService.createBooking(booking);
-//     }
 
-//     // Cancel booking
-//     @DeleteMapping("/{id}")
-//     public void cancelBooking(@PathVariable Long id){
-//         bookingService.cancelBooking(id);
-//     }
-
-//     // Get bookings by user
-//     @GetMapping("/user/{id}")
-//     public List<BookingModel> getUserBookings(@PathVariable Long id){
-//         return bookingService.getUserBookings(id);
-//     }
-
-// }
 
 // @CrossOrigin(origins="*")
 // @RestController
@@ -57,22 +34,17 @@ import com.example.meeting_room_booking.service.BookingService;
 // }
 
 
-@CrossOrigin(origins="*")
 @RestController
-@RequestMapping("/booking")
+@RequestMapping("/admin")
+@CrossOrigin("*")
 public class BookingController {
 
     @Autowired
-    private BookingService bookingService;
+    private BookingRepository repo;
 
-    @PostMapping
-    public BookingModel bookRoom(@RequestBody BookingModel booking){
-        return bookingService.createBooking(booking);
+    // GET ALL BOOKINGS (ADMIN)
+    @GetMapping("/bookings")
+    public List<BookingModel> getBookings(){
+        return repo.findAll();
     }
-
-    @GetMapping("/user/{id}")
-    public List<BookingModel> getUserBookings(@PathVariable Long id){
-        return bookingService.getUserBookings(id);
-    }
-
 }

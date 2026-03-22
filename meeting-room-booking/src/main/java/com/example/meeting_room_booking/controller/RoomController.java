@@ -7,54 +7,55 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import com.example.meeting_room_booking.model.RoomModel;
-import com.example.meeting_room_booking.service.RoomService;
+import com.example.meeting_room_booking.repository.RoomRepository;
+// import com.example.meeting_room_booking.service.RoomService;
 
-@CrossOrigin(origins="*")
-@RestController
-@RequestMapping("/room")
-public class RoomController {
-
-    @Autowired
-    private RoomService roomService;
-
-    // Get all rooms
-
-
-    @GetMapping
-    public List<RoomModel> getAllRooms(){
-        return roomService.getAllRooms();
-    }
-
-    // Get room by id
-    @GetMapping("/{id}")
-    public RoomModel getRoomById(@PathVariable Long id){
-        return roomService.getRoomById(id);
-    }
-
-    // Check room availability
-    @GetMapping("/available")
-    public List<RoomModel> checkAvailability(){
-        return roomService.checkAvailability();
-    }
-}
-
+// @CrossOrigin(origins="*")
 // @RestController
-// @RequestMapping("/admin")
-// @CrossOrigin("*")
+// @RequestMapping("/room")
 // public class RoomController {
 
 //     @Autowired
-//     private RoomRepository repo;
+//     private RoomService roomService;
 
-//     // ADD ROOM
-//     @PostMapping("/rooms")
-//     public RoomModel addRoom(@RequestBody RoomModel room){
-//         return repo.save(room);
+//     // Get all rooms
+
+
+//     @GetMapping
+//     public List<RoomModel> getAllRooms(){
+//         return roomService.getAllRooms();
 //     }
 
-//     // GET ALL ROOMS
-//     @GetMapping("/rooms")
-//     public List<RoomModel> getRooms(){
-//         return repo.findAll();
+//     // Get room by id
+//     @GetMapping("/{id}")
+//     public RoomModel getRoomById(@PathVariable Long id){
+//         return roomService.getRoomById(id);
 //     }
-// }
+
+//     // Check room availability
+//     @GetMapping("/available")
+//     public List<RoomModel> checkAvailability(){
+//         return roomService.checkAvailability();
+//     }
+//}
+
+@RestController
+@RequestMapping("/admin")
+@CrossOrigin("*")
+public class RoomController {
+
+    @Autowired
+    private RoomRepository repo;
+
+    // ADD ROOM
+    @PostMapping("/rooms")
+    public RoomModel addRoom(@RequestBody RoomModel room){
+        return repo.save(room);
+    }
+
+    // GET ALL ROOMS
+    @GetMapping("/rooms")
+    public List<RoomModel> getRooms(){
+        return repo.findAll();
+    }
+}

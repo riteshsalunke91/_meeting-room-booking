@@ -8,9 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import com.example.meeting_room_booking.model.RoomModel;
+import com.example.meeting_room_booking.repository.BookingRepository;
+import com.example.meeting_room_booking.repository.RoomRepository;
 import com.example.meeting_room_booking.model.BookingModel;
-import com.example.meeting_room_booking.service.RoomService;
-import com.example.meeting_room_booking.service.BookingService;
+ import com.example.meeting_room_booking.service.RoomService;
+ import com.example.meeting_room_booking.service.BookingService;
 
 @CrossOrigin(origins="*")
 @RestController
