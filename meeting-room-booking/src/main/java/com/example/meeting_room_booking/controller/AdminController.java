@@ -8,15 +8,51 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import com.example.meeting_room_booking.model.RoomModel;
-import com.example.meeting_room_booking.repository.BookingRepository;
-import com.example.meeting_room_booking.repository.RoomRepository;
+// import com.example.meeting_room_booking.repository.BookingRepository;
+//import com.example.meeting_room_booking.repository.RoomRepository;
 import com.example.meeting_room_booking.model.BookingModel;
  import com.example.meeting_room_booking.service.RoomService;
  import com.example.meeting_room_booking.service.BookingService;
 
-@CrossOrigin(origins="*")
+// @CrossOrigin(origins="*")
+// @RestController
+// @RequestMapping("/admin")
+// public class AdminController {
+
+//     @Autowired
+//     private RoomService roomService;
+
+//     @Autowired
+//     private BookingService bookingService;
+
+//     // Add Room
+//    @PostMapping("/rooms") public RoomModel addRoom(@RequestBody RoomModel room)
+//    { return roomService.addRoom(room); }
+
+//     // Update Room
+//     @PutMapping("/rooms/{id}")
+//     public RoomModel updateRoom(@PathVariable Long id, @RequestBody RoomModel room){
+//         return roomService.updateRoom(id, room);
+//     }
+
+//     // Delete Room
+//     @DeleteMapping("/rooms/{id}")
+//     public String deleteRoom(@PathVariable Long id){
+//         roomService.deleteRoom(id);
+//         return "Room Deleted Successfully";
+//     }
+
+//     // View All Bookings
+//     @GetMapping("/bookings")
+//     public List<BookingModel> getAllBooking(){
+//         return bookingService.getAllBookings();
+//     }
+// }
+
+
 @RestController
 @RequestMapping("/admin")
+@CrossOrigin("*")
 public class AdminController {
 
     @Autowired
@@ -25,24 +61,32 @@ public class AdminController {
     @Autowired
     private BookingService bookingService;
 
-    // Add Room
-   @PostMapping("/rooms") public RoomModel addRoom(@RequestBody RoomModel room)
-   { return roomService.addRoom(room); }
+    // ADD ROOM
+    @PostMapping("/rooms")
+    public RoomModel addRoom(@RequestBody RoomModel room){
+        return roomService.addRoom(room);
+    }
 
-    // Update Room
+    // GET ALL ROOMS
+    @GetMapping("/rooms")
+    public List<RoomModel> getRooms(){
+        return roomService.getAllRooms();
+    }
+
+    // UPDATE ROOM
     @PutMapping("/rooms/{id}")
     public RoomModel updateRoom(@PathVariable Long id, @RequestBody RoomModel room){
         return roomService.updateRoom(id, room);
     }
 
-    // Delete Room
+    // DELETE ROOM
     @DeleteMapping("/rooms/{id}")
     public String deleteRoom(@PathVariable Long id){
         roomService.deleteRoom(id);
-        return "Room Deleted Successfully";
+        return "Room Deleted";
     }
 
-    // View All Bookings
+    // VIEW BOOKINGS
     @GetMapping("/bookings")
     public List<BookingModel> getAllBooking(){
         return bookingService.getAllBookings();
