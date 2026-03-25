@@ -5,36 +5,42 @@
 <link rel="stylesheet" href="../css/style.css">
 </head>
 
-<body>
-
-<h2>Add Meeting Room</h2>
-
-<!-- <input type="text" id="roomName" placeholder="Room Name">
-
-<input type="text" id="location" placeholder="Location">
-
-<input type="number" id="capacity" placeholder="Capacity">
-
-<input type="date" id="availableDate">
-
-<input type="time" id="startTime">
-
-<input type="time" id="endTime"> -->
-
-
-<input type="text" id="roomName">
-<input type="text" id="location">
-<input type="number" id="capacity">
-
-<input type="date" id="availableDate">
-<input type="time" id="startTime">
-<input type="time" id="endTime">
-
-<button onclick="addRoom()">Add Room</button>
-
 
 
 <script src="../js/admin.js"></script>
 
 </body>
-</html>
+</html> 
+<body>
+
+<div class="navbar">
+    <h2>Admin Panel</h2>
+</div>
+
+<div class="container">
+    <div class="card">
+        <h2>Add Meeting Room</h2>
+
+        <label>Room Name</label>
+        <input type="text" id="roomName">
+
+        <label>Location</label>
+        <input type="text" id="location">
+
+        <label>Capacity</label>
+        <input type="number" id="capacity">
+
+        <label>Date</label>
+        <input type="date" id="availableDate">
+
+        <label>Start Time</label>
+        <input type="time" id="startTime">
+
+        <label>End Time</label>
+        <input type="time" id="endTime">
+
+        <button onclick="addRoom()">Add Room</button>
+    </div>
+</div>
+
+</body>

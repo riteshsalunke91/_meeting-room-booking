@@ -9,25 +9,6 @@ import org.springframework.stereotype.Repository;
 import com.example.meeting_room_booking.model.BookingModel;
 
 
-// @Repository
-// public interface BookingRepository extends JpaRepository<BookingModel, Long> {
-// List<BookingModel> findByUserId(Long userId);
-
-//     List<BookingModel> findByRoomId(Long roomId);
-    
-// } 
-
-// @Repository
-// public interface BookingRepository extends JpaRepository<BookingModel, Long> {
-
-//     List<BookingModel> findByUserId(Long userId);
-
-//     List<BookingModel> findByRoomId(Long roomId);
-
-//     List<BookingModel> findByRoomIdAndDate(Long roomId, LocalDate date);
-
-//}
-
 @Repository
 public interface BookingRepository extends JpaRepository<BookingModel, Long>{
 

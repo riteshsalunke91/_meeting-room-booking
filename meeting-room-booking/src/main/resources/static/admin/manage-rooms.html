@@ -1,40 +1,54 @@
 <!DOCTYPE html>
 <html>
-<head>
-<title>Manage Rooms</title>
+<head> 
+ <title>Manage Rooms</title>
 <link rel="stylesheet" href="../css/style.css">
-</head>
+</head> 
 
-<body onload="loadRooms()">
-<h2>Manage Rooms</h2>
-<div id="rooms"></div>
+<body>
+
+<div class="navbar">
+    <h2>Admin Panel</h2>
+</div>
+
+<div class="container">
+    <div class="card">
+        <h2>Manage Rooms</h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Location</th>
+                    <th>Capacity</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                </tr>
+            </thead>
+            <tbody id="roomTable"></tbody>
+        </table>
+
+    </div>
+</div>
 
 <script>
-
 fetch("http://localhost:8080/admin/rooms")
-.then(res=>res.json())
-.then(data=>{
+.then(res => res.json())
+.then(data => {
+    let table = document.getElementById("roomTable");
+    table.innerHTML = "";
 
-console.log(data); // IMPORTANT
-
-let div=document.getElementById("rooms");
-
-div.innerHTML="";
-
-data.forEach(r=>{
-
-div.innerHTML+=`
-<div>
-<p>${r.roomName}</p>
-<p>${r.location}</p>
-<p>${r.capacity}</p>
-<p>${r.availableDate}</p>
-<p>${r.startTime} - ${r.endTime}</p>
-</div>
-`;
-
+    data.forEach(r => {
+        table.innerHTML += `
+        <tr>
+            <td>${r.roomName}</td>
+            <td>${r.location}</td>
+            <td>${r.capacity}</td>
+            <td>${r.availableDate}</td>
+            <td>${r.startTime} - ${r.endTime}</td>
+        </tr>`;
+    });
 });
-
-});
-
 </script>
+
+</body>

@@ -31,20 +31,10 @@ public class BookingController {
         return bookingService.getUserBookings(id);
     }
 
+    @DeleteMapping("/{id}")
+public String cancelBooking(@PathVariable Long id){
+    bookingService.cancelBooking(id);
+    return "Booking Cancelled";
 }
 
-
-// @RestController
-// @RequestMapping("/admin")
-// @CrossOrigin("*")
-// public class BookingController {
-
-//     @Autowired
-//     private BookingRepository repo;
-
-//     // GET ALL BOOKINGS (ADMIN)
-//     @GetMapping("/bookings")
-//     public List<BookingModel> getBookings(){
-//         return repo.findAll();
-//     }
-// }
+}

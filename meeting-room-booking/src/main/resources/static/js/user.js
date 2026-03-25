@@ -1,69 +1,121 @@
-function bookRoom(roomId){
 
-let userId=localStorage.getItem("userId");
 
-let date=prompt("Enter date");
+let userId = localStorage.getItem("userId");
+
+// ✅ LOAD ALL ROOMS
+function loadRooms(){
+
+fetch("http://localhost:8080/admin/rooms")
+.then(res=>res.json())
+.then(data=>{
+let html="";
+
+data.forEach(r=>{
+html += `
+<p>
+<b>${r.name}</b> - ${r.location} (Capacity: ${r.capacity})
+<button onclick="selectRoom(${r.id})">Select</button>
+</p>
+`;
+});
+
+document.getElementById("rooms").innerHTML = html;
+
+});
+
+}
+
+// ✅ SELECT ROOM
+function selectRoom(id){
+document.getElementById("roomId").value = id;
+}
+
+// ✅ CHECK AVAILABILITY
+function checkAvailability(){
+
+let date = document.getElementById("date").value;
+let start = document.getElementById("startTime").value;
+let end = document.getElementById("endTime").value;
+
+fetch("http://localhost:8080/admin/rooms")
+.then(res=>res.json())
+.then(data=>{
+let html="";
+
+data.forEach(r=>{
+html += `<p>${r.name} - Available</p>`;
+});
+
+document.getElementById("availableRooms").innerHTML = html;
+
+});
+
+}
+
+// ✅ BOOK ROOM
+function bookRoom(){
 
 fetch("http://localhost:8080/booking",{
-
 method:"POST",
-
 headers:{
 "Content-Type":"application/json"
 },
-
 body:JSON.stringify({
-
-userId:userId,
-roomId:roomId,
-date:date
-
+user:{id:userId},
+room:{id:document.getElementById("roomId").value},
+date:document.getElementById("bookDate").value,
+startTime:document.getElementById("bookStart").value,
+endTime:document.getElementById("bookEnd").value
 })
-
-});
-
-alert("Room Booked");
-
-}
-
-function cancelBooking(id){
-
-fetch("http://localhost:8080/booking/"+id,{
-
-method:"DELETE"
-
 })
-.then(res=>{
-
-alert("Booking Cancelled");
-
-loadBookingHistory();
-
-});
-
-}
-function loadBookingHistory(){
-
-let userId=localStorage.getItem("userId");
-
-fetch("http://localhost:8080/booking/user/"+userId)
-
 .then(res=>res.json())
+.then(()=>{
+alert("Room Booked");
+loadHistory();
+});
 
+}
+
+// ✅ LOAD BOOKING HISTORY
+function loadHistory(){
+
+fetch(`http://localhost:8080/booking/user/${userId}`)
+.then(res=>res.json())
 .then(data=>{
 
-let div=document.getElementById("history");
+let html="";
 
 data.forEach(b=>{
-
-div.innerHTML+=`
-
-<p>Room ${b.roomId} ${b.date}</p>
-
+html += `
+<p>
+${b.room.name} - ${b.date} (${b.startTime} - ${b.endTime})
+<button onclick="cancelBooking(${b.id})">Cancel</button>
+</p>
 `;
-
 });
+
+document.getElementById("history").innerHTML = html;
 
 });
 
 }
+
+// ✅ CANCEL BOOKING
+function cancelBooking(id){
+
+fetch(`http://localhost:8080/booking/${id}`,{
+method:"DELETE"
+})
+.then(()=>{
+alert("Booking Cancelled");
+loadHistory();
+});
+
+}
+
+// AUTO LOAD
+loadRooms();
+loadHistory();
+
+
+
