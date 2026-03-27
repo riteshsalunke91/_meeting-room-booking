@@ -1,39 +1,43 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>All Bookings</title>
+<title>Available Rooms</title>
 <link rel="stylesheet" href="../css/style.css">
 </head>
+<!-- 
+<body onload="loadRooms()">
+
+<div class="navbar">
+    <h2>User Panel</h2>
+</div>
+
+<div class="container">
+    <h2>Available Rooms</h2>
+    <div id="rooms" class="room-grid"></div>
+</div>
+
+<script src="../js/user.js"></script>
+
+</body> -->
 
 <body onload="loadAllBookings()">
 
-<h2>All Bookings</h2>
+<div class="navbar">
+    <h2>Admin Panel</h2>
+</div>
 
-<div id="bookings"></div>
+<div class="container">
+    <div class="card">
+        <h2>All Bookings</h2>
 
-<script>
-
-fetch("http://localhost:8080/admin/bookings")
-
-.then(res=>res.json())
-
-.then(data=>{
-
-let div=document.getElementById("bookings");
-
-data.forEach(b=>{
-
-div.innerHTML+=`
-<p>User: ${b.userId} | Room: ${b.roomId} | Date: ${b.date}</p>
-`;
-
-});
-
-});
-
-</script>
+        <div id="bookings"></div>
+    </div>
+</div>
 
 <script src="../js/admin.js"></script>
+
+</body>
+</html>
 
 </body>
 </html>

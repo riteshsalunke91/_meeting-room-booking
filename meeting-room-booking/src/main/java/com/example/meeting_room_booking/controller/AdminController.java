@@ -50,6 +50,49 @@ import com.example.meeting_room_booking.model.BookingModel;
 // }
 
 
+// @RestController
+// @RequestMapping("/admin")
+// @CrossOrigin("*")
+// public class AdminController {
+
+//     @Autowired
+//     private RoomService roomService;
+
+//     @Autowired
+//     private BookingService bookingService;
+
+//     // ADD ROOM
+//     @PostMapping("/rooms")
+//     public RoomModel addRoom(@RequestBody RoomModel room){
+//         return roomService.addRoom(room);
+//     }
+
+//     // GET ALL ROOMS
+//     @GetMapping("/rooms")
+//     public List<RoomModel> getRooms(){
+//         return roomService.getAllRooms();
+//     }
+
+//     // UPDATE ROOM
+//     @PutMapping("/rooms/{id}")
+//     public RoomModel updateRoom(@PathVariable Long id, @RequestBody RoomModel room){
+//         return roomService.updateRoom(id, room);
+//     }
+
+//     // DELETE ROOM
+//     @DeleteMapping("/rooms/{id}")
+//     public String deleteRoom(@PathVariable Long id){
+//         roomService.deleteRoom(id);
+//         return "Room Deleted";
+//     }
+
+//     // VIEW BOOKINGS
+//     @GetMapping("/bookings")
+//     public List<BookingModel> getAllBooking(){
+//         return bookingService.getAllBookings();
+//     }
+// }
+
 @RestController
 @RequestMapping("/admin")
 @CrossOrigin("*")
@@ -61,32 +104,32 @@ public class AdminController {
     @Autowired
     private BookingService bookingService;
 
-    // ADD ROOM
+    // ✅ ADD ROOM
     @PostMapping("/rooms")
     public RoomModel addRoom(@RequestBody RoomModel room){
         return roomService.addRoom(room);
     }
 
-    // GET ALL ROOMS
+    // ✅ GET ALL ROOMS
     @GetMapping("/rooms")
     public List<RoomModel> getRooms(){
         return roomService.getAllRooms();
     }
 
-    // UPDATE ROOM
+    // ✅ UPDATE ROOM
     @PutMapping("/rooms/{id}")
     public RoomModel updateRoom(@PathVariable Long id, @RequestBody RoomModel room){
         return roomService.updateRoom(id, room);
     }
 
-    // DELETE ROOM
+    // ✅ DELETE ROOM
     @DeleteMapping("/rooms/{id}")
     public String deleteRoom(@PathVariable Long id){
         roomService.deleteRoom(id);
-        return "Room Deleted";
+        return "Room Deleted Successfully";
     }
 
-    // VIEW BOOKINGS
+    // ✅ VIEW ALL BOOKINGS
     @GetMapping("/bookings")
     public List<BookingModel> getAllBooking(){
         return bookingService.getAllBookings();
