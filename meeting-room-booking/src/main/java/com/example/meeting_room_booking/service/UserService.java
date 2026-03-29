@@ -6,46 +6,25 @@ import org.springframework.stereotype.Service;
 import com.example.meeting_room_booking.model.UserModel;
 import com.example.meeting_room_booking.repository.UserRepository;
 
-
-
 @Service
 public class UserService {
 
-@Autowired
-private UserRepository repo;
+    @Autowired
+    private UserRepository repo;
 
-// public UserModel login(String email,String password){
+    // ✅ LOGIN METHOD
+    public UserModel login(String email, String password){
 
-// UserModel user = repo.findByEmail(email).orElse(null);
+        UserModel user = repo.findByEmail(email).orElse(null);
 
-// if(user==null){
-// throw new RuntimeException("User not found");
-// }
+        if(user == null){
+            throw new RuntimeException("User not found");
+        }
 
-// if(!user.getPassword().equals(password)){
-// throw new RuntimeException("Wrong password");
-// }
+        if(!user.getPassword().equals(password)){
+            throw new RuntimeException("Wrong password");
+        }
 
-// return user;
-// }
-
-public UserModel login(String email, String password){
-
-    if(email == null || email.isEmpty() || password == null || password.isEmpty()){
-        throw new RuntimeException("Email and Password required");
+        return user;
     }
-
-    UserModel user = repo.findByEmail(email).orElse(null);
-
-    if(user == null){
-        throw new RuntimeException("User not found");
-    }
-
-    if(!user.getPassword().equals(password)){
-        throw new RuntimeException("Wrong password");
-    }
-
-    return user;
-}
-
 }
