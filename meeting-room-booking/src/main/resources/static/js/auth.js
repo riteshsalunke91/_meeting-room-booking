@@ -24,7 +24,7 @@ password:password
 // ✅ SAVE USER ID
 localStorage.setItem("userId", data.id);
 
-// ✅ REDIRECT BASED ON ROLE
+//  REDIRECT BASED ON ROLE
 if(data.role==="ADMIN"){
 window.location.href="admin/admin-dashboard.html";
 }else{

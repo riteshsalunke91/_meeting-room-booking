@@ -53,7 +53,7 @@ public class BookingController {
     }
 
     // ✅ USER HISTORY
-    @GetMapping("/user/{id}")
+    @GetMapping("/booking/user/{id}")
     public List<BookingModel> getUserBookings(@PathVariable Long id){
         return bookingService.getUserBookings(id);
     }

@@ -4,6 +4,7 @@ package com.example.meeting_room_booking.controller;
 
 import java.util.List;
 
+import com.example.meeting_room_booking.model.UserModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

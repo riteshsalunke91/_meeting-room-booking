@@ -232,3 +232,49 @@ fetch("http://localhost:8080/admin/rooms")
 });
 
 
+// ✅ LOAD ALL USERS
+function loadUsers(){
+
+fetch("http://localhost:8080/admin/users")
+.then(res=>res.json())
+.then(data=>{
+
+let html="";
+
+data.forEach(u=>{
+html += `
+<div class="room-card">
+<p><b>${u.name}</b> (${u.email})</p>
+<button onclick="viewUserBookings(${u.id})">View Bookings</button>
+</div>
+`;
+});
+
+document.getElementById("users").innerHTML = html;
+
+});
+}
+
+
+function viewUserBookings(userId){
+
+fetch(`http://localhost:8080/booking/user/${userId}`)
+.then(res=>res.json())
+.then(data=>{
+
+let html="";
+
+data.forEach(b=>{
+html += `
+<div class="room-card">
+<p>Room: ${b.room.roomName}</p>
+<p>Date: ${b.date}</p>
+<p>Time: ${b.startTime} - ${b.endTime}</p>
+</div>
+`;
+});
+
+document.getElementById("userBookings").innerHTML = html;
+
+});
+}
