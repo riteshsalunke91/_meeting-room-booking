@@ -37,31 +37,60 @@ import com.example.meeting_room_booking.model.BookingModel;
 //     return "Booking Cancelled";
 // }
 
+// // }
+// @RestController
+// @RequestMapping("/booking")
+// @CrossOrigin("*")
+// public class BookingController {
+
+//     @Autowired
+//     private BookingService bookingService;
+
+//     // ✅ BOOK ROOM
+//     @PostMapping
+//     public BookingModel bookRoom(@RequestBody BookingModel booking){
+//         return bookingService.createBooking(booking);
+//     }
+
+//     // ✅ USER HISTORY
+//     @GetMapping("/booking/user/{id}")
+//     public List<BookingModel> getUserBookings(@PathVariable Long id){
+//         return bookingService.getUserBookings(id);
+//     }
+
+//     // ✅ CANCEL BOOKING
+//     @DeleteMapping("/{id}")
+//     public String cancelBooking(@PathVariable Long id){
+//         bookingService.cancelBooking(id);
+//         return "Cancelled";
+//     }
 // }
+
+
 @RestController
 @RequestMapping("/booking")
 @CrossOrigin("*")
 public class BookingController {
 
     @Autowired
-    private BookingService bookingService;
+    private BookingService service;
 
-    // ✅ BOOK ROOM
+    // BOOK ROOM
     @PostMapping
-    public BookingModel bookRoom(@RequestBody BookingModel booking){
-        return bookingService.createBooking(booking);
+    public BookingModel book(@RequestBody BookingModel b){
+        return service.createBooking(b);
     }
 
-    // ✅ USER HISTORY
-    @GetMapping("/booking/user/{id}")
-    public List<BookingModel> getUserBookings(@PathVariable Long id){
-        return bookingService.getUserBookings(id);
+    // USER BOOKINGS
+    @GetMapping("/user/{id}")
+    public List<BookingModel> userBookings(@PathVariable Long id){
+        return service.getUserBookings(id);
     }
 
-    // ✅ CANCEL BOOKING
+    // CANCEL
     @DeleteMapping("/{id}")
-    public String cancelBooking(@PathVariable Long id){
-        bookingService.cancelBooking(id);
+    public String cancel(@PathVariable Long id){
+        service.cancelBooking(id);
         return "Cancelled";
     }
 }

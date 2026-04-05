@@ -1,280 +1,170 @@
-// function addRoom(){
+function loadAdminRooms(){
 
-// let roomName=document.getElementById("roomName").value;
-// let location=document.getElementById("location").value;
-// let capacity=document.getElementById("capacity").value;
-
-// let availableDate=document.getElementById("availableDate").value;
-// let startTime=document.getElementById("startTime").value;
-// let endTime=document.getElementById("endTime").value;
-
-// fetch("http://localhost:8080/admin/rooms",{
-
-// method:"POST",
-
-// headers:{
-// "Content-Type":"application/json"
-// },
-
-// body:JSON.stringify({
-// roomName:roomName,
-// location:location,
-// capacity:capacity,
-// availableDate:availableDate,
-// startTime:startTime,
-// endTime:endTime
-// })
-
-// })
-// .then(res=>res.json())
-// .then(data=>{
-// console.log(data);
-// alert("Room Added Successfully");
-// });
-
-// }
-
-
-// ✅ ADD ROOM
-function addRoom(){
-
-fetch("http://localhost:8080/admin/rooms",{
-method:"POST",
-headers:{
-"Content-Type":"application/json"
-},
-body:JSON.stringify({
-roomName:document.getElementById("roomName").value,
-location:document.getElementById("location").value,
-capacity:document.getElementById("capacity").value,
-availableDate:document.getElementById("availableDate").value,
-startTime:document.getElementById("startTime").value,
-endTime:document.getElementById("endTime").value
-})
-})
-.then(res=>res.json())
-.then(()=>{
-alert("Room Added");
-});
-}
-
-////////////////////////////////////////////////////
-
-// ✅ LOAD ROOMS
-function loadRooms(){
-
-fetch("http://localhost:8080/admin/rooms")
+fetch(`${BASE_URL}/admin/rooms`)
 .then(res=>res.json())
 .then(data=>{
 
-let table=document.getElementById("roomTable");
-table.innerHTML="";
+let html="";
 
 data.forEach(r=>{
-
-table.innerHTML+=`
+html+=`
 <tr>
 <td>${r.roomName}</td>
-<td>${r.location}</td>
-<td>${r.capacity}</td>
-<td>${r.availableDate}</td>
-<td>${r.startTime} - ${r.endTime}</td>
 <td>
-<button onclick="editRoom(${r.id})">Edit</button>
 <button onclick="deleteRoom(${r.id})">Delete</button>
 </td>
 </tr>
 `;
-
 });
+
+roomTable.innerHTML=html;
 
 });
 }
+function addRoom() {
 
-////////////////////////////////////////////////////
+    const roomName = document.getElementById("roomName").value;
+    const location = document.getElementById("location").value;
+    const capacity = parseInt(document.getElementById("capacity").value);
+    const availableDate = document.getElementById("availableDate").value;
+    const startTime = document.getElementById("startTime").value;
+    const endTime = document.getElementById("endTime").value;
+
+    // ✅ VALIDATION
+    if (!roomName || !location || !capacity || !availableDate || !startTime || !endTime) {
+        alert("❌ Please fill all fields");
+        return;
+    }
+
+    // ✅ FIX TIME FORMAT
+    const formattedStart = startTime.length === 5 ? startTime + ":00" : startTime;
+    const formattedEnd = endTime.length === 5 ? endTime + ":00" : endTime;
+
+    fetch(`${BASE_URL}/admin/rooms`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            roomName: roomName,
+            location: location,
+            capacity: capacity, // ✅ int
+            availableDate: availableDate,
+            startTime: formattedStart, // ✅ HH:mm:ss
+            endTime: formattedEnd
+        })
+    })
+    .then(res => {
+        if (!res.ok) {
+            return res.text().then(text => { throw new Error(text); });
+        }
+        return res.json();
+    })
+    .then(() => {
+        alert("✅ Room Added Successfully");
+        loadAdminRooms();
+    })
+    .catch(err => {
+        console.error(err);
+        alert("❌ Error: " + err.message);
+    });
+}
 
 // ✅ DELETE ROOM
-function deleteRoom(id){
+function deleteRoom(id) {
 
-if(confirm("Delete this room?")){
+    if (!confirm("Delete this room?")) return;
 
-fetch(`http://localhost:8080/admin/rooms/${id}`,{
-method:"DELETE"
-})
-.then(()=>{
-alert("Deleted");
-loadRooms();
-});
-
-}
+    fetch(`${BASE_URL}/admin/rooms/${id}`, {
+        method: "DELETE"
+    })
+        .then(() => {
+            alert("Deleted");
+            loadAdminRooms();
+        });
 }
 
-////////////////////////////////////////////////////
 
 // ✅ EDIT ROOM
-function editRoom(id){
+function editRoom(id) {
 
-let roomName = prompt("Room Name");
-let location = prompt("Location");
-let capacity = prompt("Capacity");
-let date = prompt("Date (YYYY-MM-DD)");
-let start = prompt("Start Time");
-let end = prompt("End Time");
+    const roomName = prompt("Room Name");
+    const location = prompt("Location");
+    const capacity = prompt("Capacity");
+    const date = prompt("Date (YYYY-MM-DD)");
+    const start = prompt("Start Time");
+    const end = prompt("End Time");
 
-fetch(`http://localhost:8080/admin/rooms/${id}`,{
-method:"PUT",
-headers:{
-"Content-Type":"application/json"
-},
-body:JSON.stringify({
-roomName,
-location,
-capacity,
-availableDate:date,
-startTime:start,
-endTime:end
+    fetch(`${BASE_URL}/admin/rooms/${id}`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            roomName,
+            location,
+            capacity,
+            availableDate: date,
+            startTime: start,
+            endTime: end
+        })
+    })
+        .then(() => {
+            alert("Updated");
+            loadAdminRooms();
+        });
+}
+
+
+// ✅ LOAD USERS
+function loadUsers() {
+
+    fetch(`${BASE_URL}/admin/users`)
+        .then(handleResponse)
+        .then(data => {
+
+            let html = "";
+
+            data.forEach(u => {
+                html += `
+                <div class="room-card">
+                    <p><b>${u.name}</b> (${u.email})</p>
+                    <button onclick="viewUserBookings(${u.id})">View Bookings</button>
+                </div>`;
+            });
+
+            document.getElementById("users").innerHTML = html;
+        });
+}
+
+
+// ✅ VIEW USER BOOKINGS
+function viewUserBookings(userId) {
+
+    fetch(`${BASE_URL}/booking/user/${userId}`)
+        .then(handleResponse)
+        .then(data => {
+
+            let html = "";
+
+            data.forEach(b => {
+                html += `
+                <div class="room-card">
+                    <p>Room: ${b.room.roomName}</p>
+                    <p>Date: ${b.date}</p>
+                    <p>Time: ${b.startTime} - ${b.endTime}</p>
+                </div>`;
+            });
+
+            document.getElementById("userBookings").innerHTML = html;
+        });
+}
+
+
+function deleteRoom(id){
+
+fetch(`${BASE_URL}/admin/rooms/${id}`,{
+method:"DELETE"
 })
-})
-.then(()=>{
-alert("Updated");
-loadRooms();
-});
-
-}
-
-////////////////////////////////////////////////////
-
-// ✅ LOAD BOOKINGS
-function loadAllBookings(){
-
-fetch("http://localhost:8080/admin/bookings")
-.then(res=>res.json())
-.then(data=>{
-
-let div=document.getElementById("bookings");
-div.innerHTML="";
-
-data.forEach(b=>{
-
-div.innerHTML+=`
-<div class="room-card">
-<p><b>User:</b> ${b.user?.name}</p>
-<p><b>Room:</b> ${b.room?.roomName}</p>
-<p><b>Date:</b> ${b.date}</p>
-<p><b>Time:</b> ${b.startTime} - ${b.endTime}</p>
-</div>
-`;
-
-});
-
-});
-}
-
-
-
-
-function loadAllBookings(){
-
-fetch("http://localhost:8080/admin/bookings")
-
-.then(res=>res.json())
-
-.then(data=>{
-
-let div=document.getElementById("bookings");
-
-div.innerHTML="";
-
-data.forEach(b=>{
-
-div.innerHTML+=`
-
-<div class="room-card">
-
-<p>User ID: ${b.userId}</p>
-
-<p>Room ID: ${b.roomId}</p>
-
-<p>Date: ${b.date}</p>
-
-<p>Start: ${b.startTime}</p>
-
-<p>End: ${b.endTime}</p>
-
-</div>
-
-`;
-
-});
-
-});
-
-}
-
-//manage room
-
-fetch("http://localhost:8080/admin/rooms")
-.then(res => res.json())
-.then(data => {
-    let table = document.getElementById("roomTable");
-    table.innerHTML = "";
-
-    data.forEach(r => {
-        table.innerHTML += `
-        <tr>
-            <td>${r.roomName}</td>
-            <td>${r.location}</td>
-            <td>${r.capacity}</td>
-            <td>${r.availableDate}</td>
-            <td>${r.startTime} - ${r.endTime}</td>
-        </tr>`;
-    });
-});
-
-
-// ✅ LOAD ALL USERS
-function loadUsers(){
-
-fetch("http://localhost:8080/admin/users")
-.then(res=>res.json())
-.then(data=>{
-
-let html="";
-
-data.forEach(u=>{
-html += `
-<div class="room-card">
-<p><b>${u.name}</b> (${u.email})</p>
-<button onclick="viewUserBookings(${u.id})">View Bookings</button>
-</div>
-`;
-});
-
-document.getElementById("users").innerHTML = html;
-
-});
-}
-
-
-function viewUserBookings(userId){
-
-fetch(`http://localhost:8080/booking/user/${userId}`)
-.then(res=>res.json())
-.then(data=>{
-
-let html="";
-
-data.forEach(b=>{
-html += `
-<div class="room-card">
-<p>Room: ${b.room.roomName}</p>
-<p>Date: ${b.date}</p>
-<p>Time: ${b.startTime} - ${b.endTime}</p>
-</div>
-`;
-});
-
-document.getElementById("userBookings").innerHTML = html;
-
-});
+.then(()=>loadAdminRooms());
 }

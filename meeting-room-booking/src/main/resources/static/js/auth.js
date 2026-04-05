@@ -1,38 +1,34 @@
-function login(){
+function login() {
 
-let email=document.getElementById("email").value;
-let password=document.getElementById("password").value;
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
 
-fetch("http://localhost:8080/auth/login",{
-method:"POST",
-headers:{
-"Content-Type":"application/json"
-},
-body:JSON.stringify({
-email:email,
-password:password
-})
-})
-.then(res => {
-    if(!res.ok){
-        throw new Error("Invalid credentials");
-    }
-    return res.json();
-})
-.then(data=>{
+    console.log(email, password); // DEBUG
 
-// ✅ SAVE USER ID
-localStorage.setItem("userId", data.id);
+    fetch("http://localhost:8080/auth/login", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ email, password })
+    })
+    .then(res => {
+        if (!res.ok) throw new Error("Login failed");
+        return res.json();
+    })
+    .then(data => {
 
-//  REDIRECT BASED ON ROLE
-if(data.role==="ADMIN"){
-window.location.href="admin/admin-dashboard.html";
-}else{
-window.location.href="user/user-dashboard.html";
-}
+        console.log(data); // DEBUG
 
-})
-.catch(err=>{
-alert("❌ Invalid credentials");
-});
+        localStorage.setItem("userId", data.id);
+
+        if (data.role === "ADMIN") {
+            window.location.href = "admin/admin-dashboard.html";
+        } else {
+            window.location.href = "user/user-dashboard.html";
+        }
+    })
+    .catch(() => {
+        alert("❌ Invalid email or password");
+    });
 }
