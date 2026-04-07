@@ -9,12 +9,6 @@ import com.example.meeting_room_booking.model.BookingModel;
 //import com.example.meeting_room_booking.repository.BookingRepository;
  import com.example.meeting_room_booking.service.BookingService;
 
-
-
-
-
-
-
 @RestController
 @RequestMapping("/booking")
 @CrossOrigin("*")

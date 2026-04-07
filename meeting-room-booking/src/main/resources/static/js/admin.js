@@ -168,3 +168,45 @@ method:"DELETE"
 })
 .then(()=>loadAdminRooms());
 }
+
+
+
+function addRoom(){
+
+    const roomName = document.getElementById("roomName").value;
+    const location = document.getElementById("location").value;
+    const capacity = document.getElementById("capacity").value;
+    const availableDate = document.getElementById("availableDate").value;
+    const startTime = document.getElementById("startTime").value;
+    const endTime = document.getElementById("endTime").value;
+
+    if(!roomName || !location || !capacity || !availableDate || !startTime || !endTime){
+        alert("❌ Fill all fields");
+        return;
+    }
+
+    fetch("http://localhost:8080/admin/rooms",{
+        method:"POST",
+        headers:{
+            "Content-Type":"application/json"
+        },
+        body: JSON.stringify({
+            roomName: roomName,
+            location: location,
+            capacity: parseInt(capacity),
+            availableDate: availableDate,
+            startTime: startTime + ":00",
+            endTime: endTime + ":00"
+        })
+    })
+    .then(res=>{
+        if(!res.ok) throw new Error("Failed");
+        return res.json();
+    })
+    .then(()=>{
+        alert(" Room Added");
+    })
+    .catch(()=>{
+        alert("Error adding room");
+    });
+}
