@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Booking History — Meeting Room Booking</title>
+  <link rel="stylesheet" href="style.css"/>
+  <link rel="stylesheet" href="dashboard.css"/>
+  
+
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet"/>
+  <style>
+    .tab-bar { display:flex; gap:6px; margin-bottom:24px; border-bottom:2px solid var(--gray-200); }
+    .tab-btn { padding:10px 20px; font-size:13px; font-weight:600; cursor:pointer; border:none; background:none; color:var(--gray-600); border-bottom:2px solid transparent; margin-bottom:-2px; transition:all 0.2s; font-family:inherit; }
+    .tab-btn.active { color:var(--navy); border-bottom-color:var(--navy); }
+    .booking-table { background:#fff; border-radius:var(--radius-lg); border:1px solid var(--gray-200); overflow:hidden; box-shadow:var(--shadow-sm); }
+    .table-head { display:grid; grid-template-columns:2fr 1.5fr 2fr 1fr 1fr; gap:0; background:var(--gray-100); padding:12px 20px; font-size:11px; font-weight:700; color:var(--gray-600); text-transform:uppercase; letter-spacing:0.06em; }
+    .table-row { display:grid; grid-template-columns:2fr 1.5fr 2fr 1fr 1fr; gap:0; padding:14px 20px; border-top:1px solid var(--gray-100); align-items:center; font-size:13px; transition:background 0.15s; }
+    .table-row:hover { background:var(--gray-50); }
+    .room-cell { font-weight:600; color:var(--gray-800); }
+    .date-cell  { color:var(--gray-600); font-size:12px; }
+    .time-cell  { color:var(--gray-600); font-size:12px; }
+    .btn-cancel { padding:5px 12px; border-radius:var(--radius-sm); background:#FEF2F2; color:var(--red); border:1px solid #FCA5A5; font-size:11px; font-weight:600; cursor:pointer; transition:all 0.2s; font-family:inherit; }
+    .btn-cancel:hover { background:var(--red); color:#fff; }
+    .stats-row  { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-bottom:24px; }
+    .stat-mini  { background:#fff; border-radius:var(--radius-md); border:1px solid var(--gray-200); padding:16px 18px; box-shadow:var(--shadow-sm); }
+    .stat-mini .val { font-size:24px; font-weight:800; }
+    .stat-mini .lbl { font-size:12px; color:var(--gray-600); margin-top:2px; }
+    .empty-state { text-align:center; padding:60px 20px; color:var(--gray-400); }
+    .empty-state i { font-size:48px; margin-bottom:12px; display:block; }
+  </style>
+</head>
+<body>
+<nav class="navbar">
+  <div class="nav-brand">
+    <div class="brand-icon"><i class="fa-regular fa-calendar-check"></i></div>
+    <div><div class="brand-name">Meeting Room</div><div class="brand-sub">Booking System</div></div>
+  </div>
+  <ul class="nav-links">
+    <li><a href="../index.html"><i class="fa-solid fa-house"></i> Dashboard</a></li>
+    <li><a href="rooms.html"><i class="fa-solid fa-building"></i> View Rooms</a></li>
+    <li><a href="booking.html"><i class="fa-regular fa-calendar-plus"></i> Book Room</a></li>
+    <li><a href="my-bookings.html" class="active"><i class="fa-regular fa-clipboard"></i> Booking History</a></li>
+    <li><a href="account.html"><i class="fa-regular fa-user"></i> Account Details</a></li>
+  </ul>
+  <div class="nav-user">
+    <div class="user-avatar"><img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Rahul" alt="Rahul"/></div>
+    <div><div class="user-welcome">Welcome,</div><div class="user-name">Rahul Sharma</div></div>
+    <button class="btn-logout"><i class="fa-solid fa-arrow-right-from-bracket"></i> Logout</button>
+  </div>
+</nav>
+
+<div class="page-header">
+  <div class="container">
+    <h1><i class="fa-regular fa-clipboard"></i> Booking History</h1>
+    <p>View all your past and upcoming bookings</p>
+  </div>
+</div>
+
+<div class="container" style="padding-bottom:40px;">
+  <div class="stats-row" id="stats-row"></div>
+
+  <div class="tab-bar">
+    <button class="tab-btn active" onclick="setTab('ALL',this)">All Bookings</button>
+    <button class="tab-btn" onclick="setTab('CONFIRMED',this)">Confirmed</button>
+    <button class="tab-btn" onclick="setTab('PENDING',this)">Pending</button>
+    <button class="tab-btn" onclick="setTab('CANCELLED',this)">Cancelled</button>
+  </div>
+
+  <div class="booking-table">
+    <div class="table-head">
+      <span>Room</span>
+      <span>Date</span>
+      <span>Time Slot</span>
+      <span>Status</span>
+      <span>Action</span>
+    </div>
+    <div id="booking-rows"></div>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="footer-inner container">
+    <div class="footer-brand"><div class="brand-icon sm"><i class="fa-regular fa-calendar-check"></i></div><span>Meeting Room Booking System</span></div>
+    <div class="footer-copy">© 2024 All Rights Reserved.</div>
+    <div class="footer-social"><span>Stay Connected</span><a href="#"><i class="fa-brands fa-facebook-f"></i></a><a href="#"><i class="fa-brands fa-twitter"></i></a><a href="#"><i class="fa-brands fa-linkedin-in"></i></a><a href="#"><i class="fa-brands fa-instagram"></i></a></div>
+  </div>
+</footer>
+
+</body>
+</html>

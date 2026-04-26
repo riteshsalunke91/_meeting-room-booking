@@ -42,92 +42,92 @@
 //         });
 // }
 
-function loadUserRooms(){
+// function loadUserRooms(){
 
-fetch(`${BASE_URL}/room`)
-.then(res=>res.json())
-.then(data=>{
+// fetch(`${BASE_URL}/room`)
+// .then(res=>res.json())
+// .then(data=>{
 
-let html="";
+// let html="";
 
-data.forEach(r=>{
-html+=`
-<div class="room-card">
-<h3>${r.roomName}</h3>
-<p>${r.location}</p>
+// data.forEach(r=>{
+// html+=`
+// <div class="room-card">
+// <h3>${r.roomName}</h3>
+// <p>${r.location}</p>
 
-<input type="date" id="d-${r.id}">
-<input type="time" id="s-${r.id}">
-<input type="time" id="e-${r.id}">
+// <input type="date" id="d-${r.id}">
+// <input type="time" id="s-${r.id}">
+// <input type="time" id="e-${r.id}">
 
-<button onclick="bookRoom(${r.id})">Book</button>
-</div>
-`;
-});
+// <button onclick="bookRoom(${r.id})">Book</button>
+// </div>
+// `;
+// });
 
-rooms.innerHTML=html;
+// rooms.innerHTML=html;
 
-});
-}
-// ✅ BOOK ROOM
-function bookRoom(id){
+// });
+// }
+// // ✅ BOOK ROOM
+// function bookRoom(id){
 
-fetch(`${BASE_URL}/booking`,{
-method:"POST",
-headers:{ "Content-Type":"application/json" },
-body:JSON.stringify({
-user:{id:localStorage.getItem("userId")},
-room:{id:id},
-date:document.getElementById(`d-${id}`).value,
-startTime:document.getElementById(`s-${id}`).value,
-endTime:document.getElementById(`e-${id}`).value
-})
-})
-.then(()=>alert("Booked"));
-}
-
-
-// ✅ LOAD HISTORY
-function loadHistory(){
-
-fetch(`${BASE_URL}/booking/user/${localStorage.getItem("userId")}`)
-.then(res=>res.json())
-.then(data=>{
-
-let html="";
-
-data.forEach(b=>{
-html+=`
-<div class="room-card">
-${b.room.roomName} - ${b.date}
-<button onclick="cancelBooking(${b.id})">Cancel</button>
-</div>
-`;
-});
-
-history.innerHTML=html;
-
-});
-}
-
-// ✅ CANCEL BOOKING
-function cancelBooking(id) {
-
-    if (!confirm("Cancel this booking?")) return;
-
-    fetch(`${BASE_URL}/booking/${id}`, {
-        method: "DELETE"
-    })
-        .then(() => {
-            alert("❌ Booking Cancelled");
-            loadHistory();
-        })
-        .catch(err => console.error(err));
-}
+// fetch(`${BASE_URL}/booking`,{
+// method:"POST",
+// headers:{ "Content-Type":"application/json" },
+// body:JSON.stringify({
+// user:{id:localStorage.getItem("userId")},
+// room:{id:id},
+// date:document.getElementById(`d-${id}`).value,
+// startTime:document.getElementById(`s-${id}`).value,
+// endTime:document.getElementById(`e-${id}`).value
+// })
+// })
+// .then(()=>alert("Booked"));
+// }
 
 
-// ✅ AUTO LOAD
-window.onload = function () {
-    loadUserRooms();
-    loadHistory();
-};
+// // ✅ LOAD HISTORY
+// function loadHistory(){
+
+// fetch(`${BASE_URL}/booking/user/${localStorage.getItem("userId")}`)
+// .then(res=>res.json())
+// .then(data=>{
+
+// let html="";
+
+// data.forEach(b=>{
+// html+=`
+// <div class="room-card">
+// ${b.room.roomName} - ${b.date}
+// <button onclick="cancelBooking(${b.id})">Cancel</button>
+// </div>
+// `;
+// });
+
+// history.innerHTML=html;
+
+// });
+// }
+
+// // ✅ CANCEL BOOKING
+// function cancelBooking(id) {
+
+//     if (!confirm("Cancel this booking?")) return;
+
+//     fetch(`${BASE_URL}/booking/${id}`, {
+//         method: "DELETE"
+//     })
+//         .then(() => {
+//             alert("❌ Booking Cancelled");
+//             loadHistory();
+//         })
+//         .catch(err => console.error(err));
+// }
+
+
+// // ✅ AUTO LOAD
+// window.onload = function () {
+//     loadUserRooms();
+//     loadHistory();
+// };

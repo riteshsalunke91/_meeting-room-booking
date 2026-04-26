@@ -1,0 +1,78 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Meeting Room Booking</title>
+<link rel="stylesheet" href="style.css">
+<!-- <link rel="stylesheet" href="dashboard.css" -->
+</head>
+<body>
+
+<div class="container">
+
+    <!-- Left Section -->
+    <div class="left-panel">
+        <div class="logo">
+            📅 <span>Meeting Room<br>Booking System</span>
+        </div>
+
+        <h1>Book Smart,<br>Meet Better</h1>
+
+        <p>
+            Manage all your meeting room reservations from one simple,
+            powerful dashboard.
+        </p>
+
+        <div class="features">
+            <div>⚡ Instant room booking</div>
+            <div>🛡 Conflict detection</div>
+            <div>📖 Booking history</div>
+        </div>
+    </div>
+
+    <!-- Right Section -->
+    <div class="right-panel">
+        <div class="form-box">
+            <h2 id="form-title">Welcome Back!</h2>
+            <p id="form-subtitle">Sign in to your account</p>
+
+            <form id="authForm">
+
+                <div class="input-group" id="nameField" style="display:none;">
+                    <label>FULL NAME</label>
+                    <input type="text" id="name" placeholder="Enter your name">
+                </div>
+
+                <div class="input-group">
+                    <label>EMAIL ADDRESS</label>
+                    <input type="email" id="email" placeholder="Enter your email">
+                </div>
+
+                <div class="input-group">
+                    <label>PASSWORD</label>
+                    <input type="password" id="password" placeholder="Enter password">
+                </div>
+
+                <button type="submit" class="btn" id="submitBtn">Login</button>
+
+                <p class="switch-text">
+                    <span id="switchMsg">Don't have an account?</span>
+                    <a href="#" onclick="toggleForm()" id="switchLink">Register here</a>
+                </p>
+
+            </form>
+        </div>
+    </div>
+
+</div>
+
+
+
+<script src="auth.js"></script>
+<script src="user.js"></script>
+
+
+</body>
+</html>

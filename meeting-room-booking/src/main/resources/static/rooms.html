@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>View Rooms — Meeting Room Booking</title>
+  <link rel="stylesheet" href="style.css"/>
+  <link rel="stylesheet" href="dashboard.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet"/>
+  <style>
+    .filter-bar { display:flex; gap:10px; margin-bottom:24px; flex-wrap:wrap; align-items:center; }
+    .filter-btn { padding:7px 16px; border-radius:20px; border:1.5px solid var(--gray-200); background:#fff; font-size:12px; font-weight:600; cursor:pointer; transition:all 0.2s; color:var(--gray-600); }
+    .filter-btn.active, .filter-btn:hover { background:var(--navy); color:#fff; border-color:var(--navy); }
+    .search-input { flex:1; max-width:280px; padding:8px 14px; border:1.5px solid var(--gray-200); border-radius:var(--radius-md); font-size:13px; font-family:inherit; }
+    .search-input:focus { outline:none; border-color:var(--navy); }
+    .rooms-full-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:20px; }
+    .room-card-full { background:#fff; border-radius:var(--radius-lg); border:1px solid var(--gray-200); overflow:hidden; box-shadow:var(--shadow-sm); transition:transform 0.2s,box-shadow 0.2s; }
+    .room-card-full:hover { transform:translateY(-4px); box-shadow:var(--shadow-md); }
+    .room-card-img { height:140px; background:linear-gradient(135deg,#dde3f5,#c5cfed); display:flex; align-items:center; justify-content:center; font-size:48px; }
+    .room-card-body { padding:16px; }
+    .room-card-body h3 { font-size:15px; font-weight:700; color:var(--gray-800); margin-bottom:10px; }
+    .room-meta-row { display:flex; flex-direction:column; gap:5px; margin-bottom:14px; }
+    .room-meta-row span { font-size:12px; color:var(--gray-600); display:flex; align-items:center; gap:6px; }
+    .room-meta-row i { width:14px; color:var(--gray-400); }
+    .room-card-footer { display:flex; align-items:center; justify-content:space-between; padding-top:12px; border-top:1px solid var(--gray-100); }
+    .btn-book { background:var(--navy); color:#fff; padding:8px 18px; border-radius:var(--radius-md); font-size:12px; font-weight:600; border:none; cursor:pointer; transition:background 0.2s; }
+    .btn-book:hover { background:var(--navy-dark); }
+    .btn-book:disabled { background:var(--gray-400); cursor:not-allowed; }
+    .empty-state { text-align:center; padding:60px 20px; color:var(--gray-400); }
+    .empty-state i { font-size:48px; margin-bottom:12px; display:block; }
+  </style>
+</head>
+<body>
+<nav class="navbar">
+  <div class="nav-brand">
+    <div class="brand-icon"><i class="fa-regular fa-calendar-check"></i></div>
+    <div><div class="brand-name">Meeting Room</div><div class="brand-sub">Booking System</div></div>
+  </div>
+  <ul class="nav-links">
+    <li><a href="../index.html"><i class="fa-solid fa-house"></i> Dashboard</a></li>
+    <li><a href="rooms.html" class="active"><i class="fa-solid fa-building"></i> View Rooms</a></li>
+    <li><a href="booking.html"><i class="fa-regular fa-calendar-plus"></i> Book Room</a></li>
+    <li><a href="my-bookings.html"><i class="fa-regular fa-clipboard"></i> Booking History</a></li>
+    <li><a href="account.html"><i class="fa-regular fa-user"></i> Account Details</a></li>
+  </ul>
+  <div class="nav-user">
+    <div class="user-avatar"><img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Rahul" alt="Rahul"/></div>
+    <div><div class="user-welcome">Welcome,</div><div class="user-name">Rahul Sharma</div></div>
+    <button class="btn-logout"><i class="fa-solid fa-arrow-right-from-bracket"></i> Logout</button>
+  </div>
+</nav>
+
+<div class="page-header">
+  <div class="container">
+    <h1><i class="fa-solid fa-building"></i> View Rooms</h1>
+    <p>Browse all available meeting rooms and their details</p>
+  </div>
+</div>
+
+<div class="container" style="padding-bottom:40px;">
+  <div class="filter-bar">
+    <input type="text" class="search-input" placeholder="🔍  Search rooms..." id="search-input" oninput="filterRooms()"/>
+    <button class="filter-btn active" onclick="setFilter('ALL', this)">All Rooms</button>
+    <button class="filter-btn" onclick="setFilter('AVAILABLE', this)">Available</button>
+    <button class="filter-btn" onclick="setFilter('OCCUPIED', this)">Occupied</button>
+    <button class="filter-btn" onclick="setFilter('RESERVED', this)">Reserved</button>
+  </div>
+  <div class="rooms-full-grid" id="rooms-full-grid">
+    <div class="empty-state"><i class="fa-solid fa-spinner fa-spin"></i><p>Loading rooms...</p></div>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="footer-inner container">
+    <div class="footer-brand"><div class="brand-icon sm"><i class="fa-regular fa-calendar-check"></i></div><span>Meeting Room Booking System</span></div>
+    <div class="footer-copy">© 2024 All Rights Reserved.</div>
+    <div class="footer-social"><span>Stay Connected</span><a href="#"><i class="fa-brands fa-facebook-f"></i></a><a href="#"><i class="fa-brands fa-twitter"></i></a><a href="#"><i class="fa-brands fa-linkedin-in"></i></a><a href="#"><i class="fa-brands fa-instagram"></i></a></div>
+  </div>
+</footer>
+
+
+</body>
+</html>

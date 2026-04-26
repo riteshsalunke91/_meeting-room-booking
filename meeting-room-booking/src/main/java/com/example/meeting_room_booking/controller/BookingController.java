@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import com.example.meeting_room_booking.model.BookingModel;
-//import com.example.meeting_room_booking.repository.BookingRepository;
+import com.example.meeting_room_booking.repository.BookingRepository;
  import com.example.meeting_room_booking.service.BookingService;
 
 @RestController
@@ -30,9 +30,12 @@ public class BookingController {
     }
 
     // CANCEL
-    @DeleteMapping("/{id}")
+     @DeleteMapping("/{id}")
     public String cancel(@PathVariable Long id){
         service.cancelBooking(id);
         return "Cancelled";
     }
 }
+
+
+

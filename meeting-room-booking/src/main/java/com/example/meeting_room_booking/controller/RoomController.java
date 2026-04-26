@@ -13,7 +13,7 @@ import com.example.meeting_room_booking.service.RoomService;
 @CrossOrigin(origins="*")
 @RestController
 @RequestMapping("/room")
-public class RoomController {
+public class RoomController { 
 
     @Autowired
     private RoomService roomService;
@@ -39,3 +39,5 @@ public class RoomController {
         return roomService.checkAvailability();
     }
 }
+
+

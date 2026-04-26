@@ -1,28 +1,36 @@
 package com.example.meeting_room_booking.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-// import com.example.meeting_room_booking.dto.RegisterRequest;
 import com.example.meeting_room_booking.dto.LoginRequest;
 import com.example.meeting_room_booking.model.UserModel;
 import com.example.meeting_room_booking.service.UserService;
-
 
 @RestController
 @RequestMapping("/auth")
 @CrossOrigin("*")
 public class AuthController {
 
-@Autowired
-private UserService service;
+    private final UserService service;
 
-@PostMapping("/login")
-public UserModel login(@RequestBody LoginRequest req){
+    public AuthController(UserService service) {
+        this.service = service;
+    }
 
-return service.login(req.getEmail(),req.getPassword());
+    @PostMapping("/login")
+    public UserModel login(@RequestBody LoginRequest req) {
+        return service.login(req.getEmail(), req.getPassword());
+    }
+
+//     @PostMapping("/logout")
+//     public String logout(@RequestBody LogoutRequest req) {
+//         service.logout(req.getEmail());
+//         return "Logged out successfully";
+//     }
+// }
 
 }
-
-}
-
