@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import com.example.meeting_room_booking.model.BookingModel;
 import com.example.meeting_room_booking.repository.BookingRepository;
 
+import jakarta.persistence.Id;
+
 @Service
 public class BookingService {
 

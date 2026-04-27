@@ -23,6 +23,11 @@ public UserModel login(String email, String password){
     if(!user.getPassword().equals(password)){
         throw new RuntimeException("Wrong password");
     }
+    if (user == user) {
+    
+
+        
+    }
 
     return user;
 }
