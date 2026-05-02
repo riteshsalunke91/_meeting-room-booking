@@ -31,13 +31,11 @@ public class RoomController {
     public RoomModel getRoomById(@PathVariable Long id)
     {
         return roomService.getRoomById(id);
+    
+
+    
+
     }
 
-    // Check room availability
-    @GetMapping("/available")
-    public List<RoomModel> checkAvailability(){
-        return roomService.checkAvailability();
-    }
+
 }
-
-

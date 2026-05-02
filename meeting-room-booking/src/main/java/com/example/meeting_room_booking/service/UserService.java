@@ -12,24 +12,41 @@ public class UserService {
     @Autowired
     private UserRepository repo;
 
-public UserModel login(String email, String password){
+    // ✅ LOGIN
+    public UserModel login(String email, String password){
 
-    UserModel user = repo.findByEmail(email).orElse(null);
+        UserModel user = repo.findByEmail(email).orElse(null);
 
-    if(user == null){
-        throw new RuntimeException("User not found");
+        if(user == null){
+            throw new RuntimeException("User not found");
+        }
+
+        if(!user.getPassword().equals(password)){
+            throw new RuntimeException("Wrong password");
+        }
+
+        return user; // 
     }
 
-    if(!user.getPassword().equals(password)){
-        throw new RuntimeException("Wrong password");
+    // ✅ REGISTER
+    public UserModel register(String name, String email, String password){
+
+        if(repo.findByEmail(email).isPresent()){
+            throw new RuntimeException("Email already in use");
+        }
+
+        UserModel user = new UserModel();
+        user.setName(name);
+        user.setEmail(email);
+        user.setPassword(password);
+        user.setRole("USER"); // optional
+
+        return repo.save(user);
     }
-    if (user == user) {
-    
 
-        
+    // ✅ LOGOUT
+    public void logout(String email) {
+        // For now simple logout
+        System.out.println("User logged out: " + email);
     }
-
-    return user;
-}
-
 }

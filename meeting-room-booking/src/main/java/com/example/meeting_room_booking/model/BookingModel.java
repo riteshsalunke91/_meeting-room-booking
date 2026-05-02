@@ -1,7 +1,4 @@
 
-
-
-
 package com.example.meeting_room_booking.model;
 
 import java.time.LocalDate;

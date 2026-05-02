@@ -144,89 +144,91 @@
   </div>
 </footer>
 
-<script src="../js/api.js"></script>
-<script>
+<script src="./js/user.js"></script>
+<script src="./js/auth.js"></script>
+<script src="./js/room.js"></script>
+<!-- // <script> -->
 // Set default date = today
-document.getElementById('bookingDate').valueAsDate = new Date();
+// document.getElementById('bookingDate').valueAsDate = new Date();
 
-// Live summary update
-function updateSummary() {
-  const roomEl = document.querySelector('.room-option.selected .ro-name');
-  const title = document.getElementById('meetingTitle').value;
-  const date  = document.getElementById('bookingDate').value;
-  const start = document.getElementById('startTime').value;
-  const end   = document.getElementById('endTime').value;
-  const att   = document.getElementById('attendees').value;
-  document.getElementById('sum-room').textContent      = roomEl ? roomEl.textContent : '—';
-  document.getElementById('sum-title').textContent     = title || '—';
-  document.getElementById('sum-date').textContent      = date ? new Date(date+'T00:00').toLocaleDateString('en-IN',{day:'numeric',month:'long',year:'numeric'}) : '—';
-  document.getElementById('sum-time').textContent      = start && end ? `${start} – ${end}` : '—';
-  document.getElementById('sum-attendees').textContent = att ? `${att} people` : '—';
-}
+// // Live summary update
+// function updateSummary() {
+//   const roomEl = document.querySelector('.room-option.selected .ro-name');
+//   const title = document.getElementById('meetingTitle').value;
+//   const date  = document.getElementById('bookingDate').value;
+//   const start = document.getElementById('startTime').value;
+//   const end   = document.getElementById('endTime').value;
+//   const att   = document.getElementById('attendees').value;
+//   document.getElementById('sum-room').textContent      = roomEl ? roomEl.textContent : '—';
+//   document.getElementById('sum-title').textContent     = title || '—';
+//   document.getElementById('sum-date').textContent      = date ? new Date(date+'T00:00').toLocaleDateString('en-IN',{day:'numeric',month:'long',year:'numeric'}) : '—';
+//   document.getElementById('sum-time').textContent      = start && end ? `${start} – ${end}` : '—';
+//   document.getElementById('sum-attendees').textContent = att ? `${att} people` : '—';
+// }
 
-['meetingTitle','bookingDate','startTime','endTime','attendees'].forEach(id =>
-  document.getElementById(id).addEventListener('input', updateSummary));
+// ['meetingTitle','bookingDate','startTime','endTime','attendees'].forEach(id =>
+//   document.getElementById(id).addEventListener('input', updateSummary));
 
-// Load rooms
-let allRooms = [];
-getAvailableRooms().then(rooms => {
-  allRooms = rooms;
-  const picker = document.getElementById('room-picker');
-  picker.innerHTML = rooms.map(r => `
-    <button class="room-option" onclick="selectRoom(${r.id}, this)" type="button">
-      <div class="ro-name">${r.roomName}</div>
-      <div class="ro-cap"><i class="fa-solid fa-users" style="font-size:10px"></i> ${r.capacity} people · ${r.location}</div>
-    </button>`).join('');
-  // pre-select if roomId in URL
-  const params = new URLSearchParams(window.location.search);
-  if (params.get('roomId')) {
-    const btn = picker.querySelector(`button:nth-child(${rooms.findIndex(r=>r.id==params.get('roomId'))+1})`);
-    if (btn) btn.click();
-  }
-});
+// // Load rooms
+// let allRooms = [];
+// getAvailableRooms().then(rooms => {
+//   allRooms = rooms;
+//   const picker = document.getElementById('room-picker');
+//   picker.innerHTML = rooms.map(r => `
+<!-- //     <button class="room-option" onclick="selectRoom(${r.id}, this)" type="button">
+//       <div class="ro-name">${r.roomName}</div>
+//       <div class="ro-cap"><i class="fa-solid fa-users" style="font-size:10px"></i> ${r.capacity} people · ${r.location}</div>
+//     </button>`).join(''); -->
+//   // pre-select if roomId in URL
+//   const params = new URLSearchParams(window.location.search);
+//   if (params.get('roomId')) {
+//     const btn = picker.querySelector(`button:nth-child(${rooms.findIndex(r=>r.id==params.get('roomId'))+1})`);
+//     if (btn) btn.click();
+//   }
+// });
 
-function selectRoom(id, btn) {
-  document.querySelectorAll('.room-option').forEach(b => b.classList.remove('selected'));
-  btn.classList.add('selected');
-  document.getElementById('selectedRoomId').value = id;
-  updateSummary();
-}
+// function selectRoom(id, btn) {
+//   document.querySelectorAll('.room-option').forEach(b => b.classList.remove('selected'));
+//   btn.classList.add('selected');
+//   document.getElementById('selectedRoomId').value = id;
+//   updateSummary();
+// }
 
-async function submitBooking() {
-  const roomId = document.getElementById('selectedRoomId').value;
-  const title  = document.getElementById('meetingTitle').value;
-  const date   = document.getElementById('bookingDate').value;
-  const start  = document.getElementById('startTime').value;
-  const end    = document.getElementById('endTime').value;
-  document.getElementById('conflict-msg').style.display = 'none';
-  document.getElementById('success-msg').style.display  = 'none';
+// async function submitBooking() {
+//   const roomId = document.getElementById('selectedRoomId').value;
+//   const title  = document.getElementById('meetingTitle').value;
+//   const date   = document.getElementById('bookingDate').value;
+//   const start  = document.getElementById('startTime').value;
+//   const end    = document.getElementById('endTime').value;
+//   document.getElementById('conflict-msg').style.display = 'none';
+//   document.getElementById('success-msg').style.display  = 'none';
 
-  if (!roomId || !title || !date || !start || !end) { alert('Please fill all required fields.'); return; }
-  if (start >= end) { document.getElementById('conflict-msg').style.display = 'flex'; return; }
+//   if (!roomId || !title || !date || !start || !end) { alert('Please fill all required fields.'); return; }
+//   if (start >= end) { document.getElementById('conflict-msg').style.display = 'flex'; return; }
 
-  const payload = {
-    roomId: parseInt(roomId),
-    userId: 1,
-    title,
-    startTime: `${date}T${start}:00`,
-    endTime:   `${date}T${end}:00`,
-    status: 'CONFIRMED'
-  };
+//   const payload = {
+//     roomId: parseInt(roomId),
+//     userId: 1,
+//     title,
+//     startTime: `${date}T${start}:00`,
+//     endTime:   `${date}T${end}:00`,
+//     status: 'CONFIRMED'
+//   };
 
-  try {
-    await BookingsAPI.create(payload);
-    document.getElementById('success-msg').style.display = 'flex';
-    setTimeout(() => location.href = 'my-bookings.html', 2000);
-  } catch (e) {
-    if (e.message.toLowerCase().includes('conflict') || e.message.toLowerCase().includes('already')) {
-      document.getElementById('conflict-msg').style.display = 'flex';
-    } else {
-      // demo: show success anyway (backend may not be running)
-      document.getElementById('success-msg').style.display = 'flex';
-      setTimeout(() => location.href = 'my-bookings.html', 2000);
-    }
-  }
-}
-</script>
+//   try {
+//     await BookingsAPI.create(payload);
+//     document.getElementById('success-msg').style.display = 'flex';
+//     setTimeout(() => location.href = 'my-bookings.html', 2000);
+//   } catch (e) {
+//     if (e.message.toLowerCase().includes('conflict') || e.message.toLowerCase().includes('already')) {
+//       document.getElementById('conflict-msg').style.display = 'flex';
+//     } else {
+//       // demo: show success anyway (backend may not be running)
+//       document.getElementById('success-msg').style.display = 'flex';
+//       setTimeout(() => location.href = 'my-bookings.html', 2000);
+//     }
+//   }
+// }
+<!-- </script> -->
 </body>
 </html>

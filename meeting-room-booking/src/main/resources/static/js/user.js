@@ -1,133 +1,224 @@
-// // ✅ LOAD ROOMS
-// function loadUserRooms() {
+const BASE_URL = "http://localhost:8080";
 
-//     const div = document.getElementById("rooms");
-//     if (!div) return;
+// =======================
+// LOGIN
+// =======================
+async function loginUser() {
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
 
-//     div.innerHTML = "Loading...";
+    try {
+        const res = await fetch(`${BASE_URL}/api/user/login`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email, password })
+        });
 
-//     fetch(`${BASE_URL}/room`)
-//         .then(handleResponse)
-//         .then(data => {
+        if (!res.ok) throw new Error();
 
-//             div.innerHTML = "";
+        const user = await res.json();
 
-//             data.forEach(r => {
+        localStorage.setItem("user", JSON.stringify(user));
 
-//                 const card = document.createElement("div");
-//                 card.className = "room-card";
+        // Redirect
+        if (user.role === "ADMIN") {
+            window.location.href = "/admin/dashboard.html";
+        } else {
+            window.location.href = "/user/dashboard.html";
+        }
 
-//                 card.innerHTML = `
-//                     <h3>${r.roomName}</h3>
-//                     <p>📍 ${r.location}</p>
-//                     <p>👥 Capacity: ${r.capacity}</p>
-//                     <p>📅 ${r.availableDate}</p>
+    } catch {
+        alert("❌ Invalid email or password");
+    }
+}
 
-//                     <input type="date" id="date-${r.id}">
-                    
-//                     <div class="input-row">
-//                         <input type="time" id="start-${r.id}">
-//                         <input type="time" id="end-${r.id}">
-//                     </div>
+// =======================
+// REGISTER
+// =======================
+async function registerUser() {
+    const name = document.getElementById("name").value;
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
 
-//                     <button onclick="bookRoom(${r.id})">Book</button>
-//                 `;
+    try {
+        const res = await fetch(`${BASE_URL}/api/user/register`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ name, email, password })
+        });
 
-//                 div.appendChild(card);
-//             });
-//         })
-//         .catch(err => {
-//             div.innerHTML = "❌ Failed to load rooms";
-//             console.error(err);
-//         });
-// }
+        if (!res.ok) throw new Error();
 
-// function loadUserRooms(){
+        alert("✅ Registered successfully");
+        window.location.href = "login.html";
 
-// fetch(`${BASE_URL}/room`)
-// .then(res=>res.json())
-// .then(data=>{
+    } catch {
+        alert("❌ Registration failed");
+    }
+}
 
-// let html="";
+// =======================
+// CHECK LOGIN
+// =======================
+function checkLogin() {
+    const user = JSON.parse(localStorage.getItem("user"));
 
-// data.forEach(r=>{
-// html+=`
-// <div class="room-card">
-// <h3>${r.roomName}</h3>
-// <p>${r.location}</p>
+    if (!user) {
+        window.location.href = "/login.html";
+    }
+}
 
-// <input type="date" id="d-${r.id}">
-// <input type="time" id="s-${r.id}">
-// <input type="time" id="e-${r.id}">
+// =======================
+// SHOW USER NAME
+// =======================
+function showUser() {
+    const user = JSON.parse(localStorage.getItem("user"));
 
-// <button onclick="bookRoom(${r.id})">Book</button>
-// </div>
-// `;
-// });
+    if (user) {
+        if (document.getElementById("welcomeName")) {
+            document.getElementById("welcomeName").innerText =
+                `Welcome back, ${user.name}! 👋`;
+        }
 
-// rooms.innerHTML=html;
+        if (document.getElementById("navUserName")) {
+            document.getElementById("navUserName").innerText = user.name;
+        }
+    }
+}
 
-// });
-// }
-// // ✅ BOOK ROOM
-// function bookRoom(id){
+// =======================
+// LOGOUT
+// =======================
+function logoutUser() {
+    localStorage.removeItem("user");
+    window.location.href = "/login.html";
+}
 
-// fetch(`${BASE_URL}/booking`,{
-// method:"POST",
-// headers:{ "Content-Type":"application/json" },
-// body:JSON.stringify({
-// user:{id:localStorage.getItem("userId")},
-// room:{id:id},
-// date:document.getElementById(`d-${id}`).value,
-// startTime:document.getElementById(`s-${id}`).value,
-// endTime:document.getElementById(`e-${id}`).value
-// })
-// })
-// .then(()=>alert("Booked"));
-// }
+// =======================
+// ACCOUNT DETAILS
+// =======================
+function loadAccount() {
+    const user = JSON.parse(localStorage.getItem("user"));
 
+    if (user) {
+        document.getElementById("accName").innerText = user.name;
+        document.getElementById("accEmail").innerText = user.email;
+    }
+}
 
-// // ✅ LOAD HISTORY
-// function loadHistory(){
+// =======================
+// LOAD ROOMS
+// =======================
+async function loadRooms() {
+    const div = document.getElementById("rooms");
+    if (!div) return;
 
-// fetch(`${BASE_URL}/booking/user/${localStorage.getItem("userId")}`)
-// .then(res=>res.json())
-// .then(data=>{
+    try {
+        const res = await fetch(`${BASE_URL}/room`);
+        const data = await res.json();
 
-// let html="";
+        div.innerHTML = "";
 
-// data.forEach(b=>{
-// html+=`
-// <div class="room-card">
-// ${b.room.roomName} - ${b.date}
-// <button onclick="cancelBooking(${b.id})">Cancel</button>
-// </div>
-// `;
-// });
+        data.forEach(r => {
+            div.innerHTML += `
+                <div class="room-card">
+                    <h3>${r.roomName}</h3>
+                    <p>📍 ${r.location}</p>
+                    <p>👥 ${r.capacity}</p>
 
-// history.innerHTML=html;
+                    <input type="date" id="d-${r.id}">
+                    <input type="time" id="s-${r.id}">
+                    <input type="time" id="e-${r.id}">
 
-// });
-// }
+                    <button onclick="bookRoom(${r.id})">Book</button>
+                </div>
+            `;
+        });
 
-// // ✅ CANCEL BOOKING
-// function cancelBooking(id) {
+    } catch {
+        div.innerHTML = "❌ Failed to load rooms";
+    }
+}
 
-//     if (!confirm("Cancel this booking?")) return;
+// =======================
+// BOOK ROOM
+// =======================
+async function bookRoom(id) {
+    const user = JSON.parse(localStorage.getItem("user"));
 
-//     fetch(`${BASE_URL}/booking/${id}`, {
-//         method: "DELETE"
-//     })
-//         .then(() => {
-//             alert("❌ Booking Cancelled");
-//             loadHistory();
-//         })
-//         .catch(err => console.error(err));
-// }
+    try {
+        await fetch(`${BASE_URL}/booking`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                user: { id: user.id },
+                room: { id: id },
+                date: document.getElementById(`d-${id}`).value,
+                startTime: document.getElementById(`s-${id}`).value,
+                endTime: document.getElementById(`e-${id}`).value
+            })
+        });
 
+        alert("✅ Room Booked");
 
-// // ✅ AUTO LOAD
-// window.onload = function () {
-//     loadUserRooms();
-//     loadHistory();
-// };
+    } catch {
+        alert("❌ Booking failed");
+    }
+}
+
+// =======================
+// LOAD HISTORY
+// =======================
+async function loadHistory() {
+    const user = JSON.parse(localStorage.getItem("user"));
+    const div = document.getElementById("history");
+
+    if (!div) return;
+
+    const res = await fetch(`${BASE_URL}/booking/user/${user.id}`);
+    const data = await res.json();
+
+    div.innerHTML = "";
+
+    data.forEach(b => {
+        div.innerHTML += `
+            <div class="room-card">
+                ${b.room.roomName} - ${b.date}
+                <button onclick="cancelBooking(${b.id})">Cancel</button>
+            </div>
+        `;
+    });
+}
+
+// =======================
+// CANCEL BOOKING
+// =======================
+async function cancelBooking(id) {
+    if (!confirm("Cancel booking?")) return;
+
+    await fetch(`${BASE_URL}/booking/${id}`, {
+        method: "DELETE"
+    });
+
+    loadHistory();
+}
+
+// =======================
+// AUTO LOAD (IMPORTANT)
+// =======================
+window.onload = function () {
+
+    const path = window.location.pathname;
+
+    if (path.includes("dashboard")) {
+        checkLogin();
+        showUser();
+        loadRooms();
+        loadHistory();
+    }
+
+    if (path.includes("account")) {
+        checkLogin();
+        loadAccount();
+    }
+};

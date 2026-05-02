@@ -8,4 +8,7 @@ import com.example.meeting_room_booking.model.RoomModel;
 @Repository
 public interface RoomRepository extends JpaRepository<RoomModel, Long> {
 
+
+
+
 }
