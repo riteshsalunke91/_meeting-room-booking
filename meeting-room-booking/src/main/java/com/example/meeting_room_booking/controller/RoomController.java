@@ -33,8 +33,6 @@ public class RoomController {
         return roomService.getRoomById(id);
     
 
-    
-
     }
 
 

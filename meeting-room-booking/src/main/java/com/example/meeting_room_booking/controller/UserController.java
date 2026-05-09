@@ -1,5 +1,4 @@
 
-
 package com.example.meeting_room_booking.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -14,9 +13,6 @@ import com.example.meeting_room_booking.dto.LoginRequest;
 import com.example.meeting_room_booking.dto.RegisterRequestDto;
 import com.example.meeting_room_booking.model.UserModel;
 import com.example.meeting_room_booking.service.UserService;
-
-
-
 
 @RestController
 @RequestMapping("/api/user")
