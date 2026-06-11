@@ -1,14 +1,11 @@
+
 package com.example.meeting_room_booking.repository;
 
+import com.example.meeting_room_booking.model.Room;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
+import java.util.List;
 
-import com.example.meeting_room_booking.model.RoomModel;
+public interface RoomRepository extends JpaRepository<Room, Long> {
 
-@Repository
-public interface RoomRepository extends JpaRepository<RoomModel, Long> {
-
-
-
-
+    List<Room> findByStatus(String status);
 }

@@ -1,56 +1,54 @@
 package com.example.meeting_room_booking.service;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import com.example.meeting_room_booking.model.BookingModel;
+import com.example.meeting_room_booking.dto.BookingRequestDTO;
+import com.example.meeting_room_booking.model.Booking;
 import com.example.meeting_room_booking.repository.BookingRepository;
-
-// import jakarta.persistence.Id;
+import org.springframework.stereotype.Service;
+import java.util.List;
 
 @Service
 public class BookingService {
 
-    @Autowired
-    private BookingRepository bookingRepository;
+    private final BookingRepository bookingRepository;
 
-    public BookingModel createBooking(BookingModel booking){
+    public BookingService(BookingRepository bookingRepository) {
+        this.bookingRepository = bookingRepository;
+    }
 
-        Long roomId = booking.getRoom().getId();
+    public List<Booking> getAllBookings() {
+        return bookingRepository.findAll();
+    }
 
-        List<BookingModel> existingBookings =
-                bookingRepository.findByRoom_Id(roomId);
+    public List<Booking> getBookingsByUser(Long userId) {
+        return bookingRepository.findByUserId(userId);
+    }
 
-        for(BookingModel b : existingBookings){
-
-            if(booking.getDate().equals(b.getDate())){
-
-                boolean overlap =
-                    booking.getStartTime().isBefore(b.getEndTime()) &&
-                    booking.getEndTime().isAfter(b.getStartTime());
-
-                if(overlap){
-                    throw new RuntimeException("Room already booked for this time");
-                }
-
-            }
+    public Booking createBooking(BookingRequestDTO request) {
+        List<Booking> conflicts = bookingRepository.findConflicts(
+                request.getRoomId(),
+                request.getStartTime(),
+                request.getEndTime()
+        );
+        if (!conflicts.isEmpty()) {
+            throw new RuntimeException("Room already booked for this time slot!");
         }
-
+        Booking booking = new Booking();
+        booking.setRoomId(request.getRoomId());
+        booking.setRoomName(request.getRoomName());
+        booking.setUserId(request.getUserId());
+        booking.setUserName(request.getUserName());
+        booking.setTitle(request.getTitle());
+        booking.setStartTime(request.getStartTime());
+        booking.setEndTime(request.getEndTime());
+        booking.setAttendees(request.getAttendees());
+        booking.setStatus("Upcoming");
         return bookingRepository.save(booking);
     }
 
-    public void cancelBooking(Long id){
-        bookingRepository.deleteById(id);
-    }
-
-    public List<BookingModel> getUserBookings(Long userId){
-        return bookingRepository.findByUser_Id(userId);
-    }
-
-    public List<BookingModel> getAllBookings(){
-        return bookingRepository.findAll();
+    public Booking cancelBooking(Long id) {
+        Booking booking = bookingRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Booking not found"));
+        booking.setStatus("CANCELLED");
+        return bookingRepository.save(booking);
     }
 }
-

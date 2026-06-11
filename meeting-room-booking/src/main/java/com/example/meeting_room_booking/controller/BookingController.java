@@ -1,41 +1,60 @@
+
+
+
 package com.example.meeting_room_booking.controller;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.meeting_room_booking.dto.BookingRequestDTO;
+import com.example.meeting_room_booking.service.BookingService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import com.example.meeting_room_booking.model.BookingModel;
-// import com.example.meeting_room_booking.repository.BookingRepository;
- import com.example.meeting_room_booking.service.BookingService;
+import java.util.Map;
 
 @RestController
-@RequestMapping("/booking")
-@CrossOrigin("*")
+@RequestMapping("/api/bookings")
+@CrossOrigin(origins = "http://localhost:5173")
 public class BookingController {
 
-    @Autowired
-    private BookingService service;
+    private final BookingService bookingService;
 
-    // BOOK ROOM
+    public BookingController(BookingService bookingService) {
+        this.bookingService = bookingService;
+    }
+
+    @GetMapping
+    public ResponseEntity<?> getAll() {
+        return ResponseEntity.ok(
+            Map.of("data", bookingService.getAllBookings())
+        );
+    }
+
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<?> getByUser(@PathVariable Long userId) {
+        return ResponseEntity.ok(
+            Map.of("data", bookingService.getBookingsByUser(userId))
+        );
+    }
+
     @PostMapping
-    public BookingModel book(@RequestBody BookingModel b){
-        return service.createBooking(b);
+    public ResponseEntity<?> create(@RequestBody BookingRequestDTO request) {
+        try {
+            return ResponseEntity.ok(
+                Map.of("data", bookingService.createBooking(request))
+            );
+        } catch (Exception e) {
+            return ResponseEntity.badRequest()
+                .body(Map.of("message", e.getMessage()));
+        }
     }
 
-    // USER BOOKINGS
-    @GetMapping("/user/{id}")
-    public List<BookingModel> userBookings(@PathVariable Long id){
-        return service.getUserBookings(id);
-    }
-
-    // CANCEL
-     @DeleteMapping("/{id}")
-    public String cancel(@PathVariable Long id){
-        service.cancelBooking(id);
-        return "Cancelled";
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> cancel(@PathVariable Long id) {
+        try {
+            return ResponseEntity.ok(
+                Map.of("data", bookingService.cancelBooking(id))
+            );
+        } catch (Exception e) {
+            return ResponseEntity.badRequest()
+                .body(Map.of("message", e.getMessage()));
+        }
     }
 }
-
-
-
