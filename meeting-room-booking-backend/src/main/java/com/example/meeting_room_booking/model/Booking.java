@@ -24,26 +24,46 @@ public class Booking {
     public Booking() {}
 
     // ── Getters ───────────────────────────────
-    public Long getId()                 { return id; }
-    public Long getRoomId()             { return roomId; }
-    public String getRoomName()         { return roomName; }
-    public Long getUserId()             { return userId; }
-    public String getUserName()         { return userName; }
-    public String getTitle()            { return title; }
-    public LocalDateTime getStartTime() { return startTime; }
-    public LocalDateTime getEndTime()   { return endTime; }
-    public String getStatus()           { return status; }
-    public int getAttendees()           { return attendees; }
+    public Long getId()                
+     { return id; }
+    public Long getRoomId()           
+      { return roomId; }
+    public String getRoomName()         
+    { return roomName; }
+    public Long getUserId()      
+           { return userId; }
+    public String getUserName()  
+           { return userName; }
+    public String getTitle()
+                { return title; }
+    public LocalDateTime getStartTime()
+     { return startTime; }
+    public LocalDateTime getEndTime()  
+     { return endTime; }
+    public String getStatus()
+               { return status; }
+    public int getAttendees()     
+          { return attendees; }
 
     // ── Setters ───────────────────────────────
-    public void setId(Long id)                      { this.id = id; }
-    public void setRoomId(Long roomId)              { this.roomId = roomId; }
-    public void setRoomName(String roomName)        { this.roomName = roomName; }
-    public void setUserId(Long userId)              { this.userId = userId; }
-    public void setUserName(String userName)        { this.userName = userName; }
-    public void setTitle(String title)              { this.title = title; }
-    public void setStartTime(LocalDateTime start)   { this.startTime = start; }
-    public void setEndTime(LocalDateTime end)       { this.endTime = end; }
-    public void setStatus(String status)            { this.status = status; }
-    public void setAttendees(int attendees)         { this.attendees = attendees; }
+    public void setId(Long id)
+                          { this.id = id; }
+    public void setRoomId(Long roomId)
+                  { this.roomId = roomId; }
+    public void setRoomName(String roomName)   
+         { this.roomName = roomName; }
+    public void setUserId(Long userId)   
+               { this.userId = userId; }
+    public void setUserName(String userName)
+            { this.userName = userName; }
+    public void setTitle(String title)        
+          { this.title = title; }
+    public void setStartTime(LocalDateTime start)
+       { this.startTime = start; }
+    public void setEndTime(LocalDateTime end)
+           { this.endTime = end; }
+    public void setStatus(String status)  
+              { this.status = status; }
+    public void setAttendees(int attendees)  
+           { this.attendees = attendees; }
 }
