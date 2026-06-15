@@ -22,13 +22,20 @@ public class Room {
     public Room() {}
 
     // ── Getters ───────────────────────────────
-    public Long getId()          { return id; }
-    public String getRoomName()  { return roomName; }
-    public String getLocation()  { return location; }
-    public int getCapacity()     { return capacity; }
-    public String getStatus()    { return status; }
-    public String getImage()     { return image; }
-    public String getDescription(){ return description; }
+    public Long getId()         
+     { return id; }
+    public String getRoomName() 
+     { return roomName; }
+    public String getLocation()
+      { return location; }
+    public int getCapacity()  
+       { return capacity; }
+    public String getStatus()
+        { return status; }
+    public String getImage()  
+       { return image; }
+    public String getDescription()
+    { return description; }
 
     // ── Setters ───────────────────────────────
     public void setId(Long id)              { this.id = id; }
