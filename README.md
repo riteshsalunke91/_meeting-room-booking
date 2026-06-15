@@ -1,7 +1,4 @@
 # Meeting Room Booking System
-
-            └── AllBookings.jsx
-
 ## 🚀 Getting Started
 
 ```bash
