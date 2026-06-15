@@ -18,9 +18,9 @@ public class AuthController {
         this.authService = authService;
     }
 
-    // ─────────────────────────────────────────
+    
     // POST /api/auth/register
-    // ─────────────────────────────────────────
+    
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody RegisterRequestDTO request) {
         try {
@@ -33,9 +33,9 @@ public class AuthController {
         }
     }
 
-    // ─────────────────────────────────────────
+    
     // POST /api/auth/login
-    // ─────────────────────────────────────────
+    
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequestDTO request) {
         try {
@@ -48,9 +48,9 @@ public class AuthController {
         }
     }
 
-    // ─────────────────────────────────────────
+    
     // POST /api/auth/logout
-    // ─────────────────────────────────────────
+    
     @PostMapping("/logout")
     public ResponseEntity<?> logout(@RequestBody LogoutRequestDTO request) {
         return ResponseEntity.ok(Map.of(
@@ -59,9 +59,9 @@ public class AuthController {
         ));
     }
 
-    // ─────────────────────────────────────────
+    
     // GET /api/auth/user/{id}   ← FIXED
-    // ─────────────────────────────────────────
+    
     @GetMapping("/user/{id}")
     public ResponseEntity<?> getUser(@PathVariable Long id) {
         try {
@@ -73,9 +73,9 @@ public class AuthController {
         }
     }
 
-    // ─────────────────────────────────────────
+    
     // PUT /api/auth/user/{id}
-    // ─────────────────────────────────────────
+    
     @PutMapping("/user/{id}")
     public ResponseEntity<?> updateUser(
             @PathVariable Long id,

@@ -38,11 +38,18 @@ public class Room {
     { return description; }
 
     // ── Setters ───────────────────────────────
-    public void setId(Long id)              { this.id = id; }
-    public void setRoomName(String n)       { this.roomName = n; }
-    public void setLocation(String l)       { this.location = l; }
-    public void setCapacity(int c)          { this.capacity = c; }
-    public void setStatus(String s)         { this.status = s; }
-    public void setImage(String i)          { this.image = i; }
-    public void setDescription(String d)    { this.description = d; }
+    public void setId(Long id)             
+     { this.id = id; }
+    public void setRoomName(String n)      
+     { this.roomName = n; }
+    public void setLocation(String l)       
+    { this.location = l; }
+    public void setCapacity(int c)         
+     { this.capacity = c; }
+    public void setStatus(String s)        
+     { this.status = s; }
+    public void setImage(String i)         
+     { this.image = i; }
+    public void setDescription(String d)   
+     { this.description = d; }
 }
