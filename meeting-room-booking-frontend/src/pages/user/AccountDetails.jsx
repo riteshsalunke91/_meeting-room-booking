@@ -42,7 +42,7 @@ export default function AccountDetails() {
           <Badge status={user?.role} />
           <div style={{ marginTop: 16, padding: "12px", background: "#F8FAFC", borderRadius: 10 }}>
             <div style={{ fontSize: 11, color: "#94A3B8", marginBottom: 4, fontWeight: 700, textTransform: "uppercase", letterSpacing: ".05em" }}>Member Since</div>
-            <div style={{ fontSize: 13, color: "#0F172A", fontWeight: 600 }}>{user?.memberSince || "January 2025"}</div>
+            <div style={{ fontSize: 13, color: "#0F172A", fontWeight: 600 }}>{user?.memberSince || ""}</div>
           </div>
           <div style={{ marginTop: 12, padding: "12px", background: "#F8FAFC", borderRadius: 10 }}>
             <div style={{ fontSize: 11, color: "#94A3B8", marginBottom: 4, fontWeight: 700, textTransform: "uppercase", letterSpacing: ".05em" }}>Role</div>
@@ -58,7 +58,7 @@ export default function AccountDetails() {
               <Input label="Full Name" value={`${form.firstName} ${form.lastName}`}
                 onChange={e => { const [fn, ...rest] = e.target.value.split(" "); setForm(f => ({ ...f, firstName: fn, lastName: rest.join(" ") })); }} />
               <Input label="Email" value={form.email} onChange={e => setForm(f => ({ ...f, email: e.target.value }))} />
-              <Input label="Phone" value={form.phone} onChange={e => setForm(f => ({ ...f, phone: e.target.value }))} placeholder="+91 98765 43210" />
+              <Input label="Phone" value={form.phone} onChange={e => setForm(f => ({ ...f, phone: e.target.value }))} placeholder="" />
               <Input label="Department" value={form.department} onChange={e => setForm(f => ({ ...f, department: e.target.value }))} />
             </div>
             <Input label="Employee ID" value={form.employeeId} disabled style={{ background: "#F8FAFC" }} />

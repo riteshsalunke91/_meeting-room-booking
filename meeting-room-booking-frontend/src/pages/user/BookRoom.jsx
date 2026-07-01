@@ -19,6 +19,8 @@ export default function BookRoom({ preselectedRoom, setPage }) {
 
   const chosen = rooms.find(r => r.id === selRoom || r.id === parseInt(selRoom));
 
+  
+
   const submit = async () => {
     setError("");
     if (!selRoom || !form.title || !form.date || !form.startTime || !form.endTime) { setError("Please fill all required fields"); return; }
