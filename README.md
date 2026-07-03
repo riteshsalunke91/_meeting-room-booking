@@ -16,8 +16,11 @@ Open [http://localhost:5173](http://localhost:5173)
 | Role  | Email                  | Password   |
 |-------|------------------------|------------|
 | User  | john@gmail.com         | john123    |
+<<<<<<< HEAD
    
 
+=======
+>>>>>>> e155107 (Update project)
 ---
 
 ## 🔌 Backend Integration
