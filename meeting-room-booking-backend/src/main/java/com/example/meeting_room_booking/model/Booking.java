@@ -67,3 +67,4 @@ public class Booking {
     public void setAttendees(int attendees)  
            { this.attendees = attendees; }
 }
+

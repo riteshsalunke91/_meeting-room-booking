@@ -32,17 +32,6 @@ public class BookingController {
         );
     }
 
-    // @PostMapping
-    // public ResponseEntity<?> create(@RequestBody BookingRequestDTO request) {
-    //     try {
-    //         return ResponseEntity.ok(
-    //             Map.of("data", bookingService.createBooking(request))
-    //         );
-    //     } catch (Exception e) {
-    //         return ResponseEntity.badRequest()
-    //             .body(Map.of("message", e.getMessage()));
-    //     }
-    // }
 
     @PostMapping
 public ResponseEntity<?> create(@RequestBody BookingRequestDTO request) {

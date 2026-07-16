@@ -48,15 +48,7 @@ public class AuthService {
     // LOGIN
     public LoginResponseDTO login(LoginRequestDTO request) {
 
-        // System.out.println("Email from frontend: " + request.getEmail());
-        // System.out.println("Password from frontend: " + request.getPassword());
-
-        // User user = userRepository.findByEmail(request.getEmail())
-        //         .orElseThrow(() ->
-        //                 new RuntimeException("Invalid email or password"));
-
-        // System.out.println("Email from DB: " + user.getEmail());
-        // System.out.println("Password from DB: " + user.getPassword());
+       
         System.out.println("Email from frontend: [" + request.getEmail() + "]");
 System.out.println("Password from frontend: [" + request.getPassword() + "]");
 
