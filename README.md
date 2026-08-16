@@ -30,7 +30,7 @@ If unreachable, it silently falls back to the mock data in `src/data/mockData.js
 
 API endpoints expected:
 - `POST /auth/login` / `POST /auth/register`
-- `GET /rooms` / `GET /rooms/available` / `POST /rooms` / `PUT /rooms/:id` / `DELETE /rooms/:id`
+- `GET /rooms` / `GET  ` / `POST /rooms` / `PUT /rooms/:id` / `DELETE /rooms/:id`
 - `GET /bookings` / `GET /bookings/user/:id` / `POST /bookings` / `DELETE /bookings/:id`
 
 ---

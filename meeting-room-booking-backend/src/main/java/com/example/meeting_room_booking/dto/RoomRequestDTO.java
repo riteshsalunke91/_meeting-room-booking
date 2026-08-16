@@ -6,8 +6,8 @@ public class RoomRequestDTO {
     private String location;
     private int capacity;
     private String status;
-    private String image;          // ← this was missing
-    private String description;    // ← this was missing
+    private String image;
+    private String description;
 
     // ── Getters ───────────────────────────────
     public String getRoomName()     

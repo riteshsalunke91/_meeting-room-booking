@@ -10,6 +10,8 @@ public class RegisterRequestDTO {
     private String employeeId;
     private String phone;
 
+
+    //getter
     public String getFirstName()    
     { return firstName; }
     public String getLastName()     
@@ -22,8 +24,10 @@ public class RegisterRequestDTO {
     { return department; }
     public String getEmployeeId()   
     { return employeeId; }
-    public String getPhone()        { return phone; }
+    public String getPhone()       
+     { return phone; }
 
+     //setter
     public void setFirstName(String firstName)    
       { this.firstName = firstName; }
     public void setLastName(String lastName)        

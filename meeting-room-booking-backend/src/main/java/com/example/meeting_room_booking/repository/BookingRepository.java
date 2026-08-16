@@ -11,11 +11,11 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
 
     List<Booking> findByUserId(Long userId);
 
-    // Check for booking conflicts
-    @Query("SELECT b FROM Booking b WHERE b.roomId = :roomId " +
-           "AND b.status != 'CANCELLED' " +
-           "AND b.startTime < :endTime " +
-           "AND b.endTime > :startTime")
+
+   @Query("SELECT b FROM Booking b WHERE b.roomId = :roomId " +
+          "AND b.status != 'CANCELLED' " +
+          "AND b.startTime < :endTime " +
+          "AND b.endTime > :startTime")
     List<Booking> findConflicts(Long roomId,
                                 LocalDateTime startTime,
                                 LocalDateTime endTime);

@@ -13,6 +13,8 @@ public class BookingRequestDTO {
     private LocalDateTime endTime;
     private int attendees;
 
+
+//getter
     public Long getRoomId()       
      { return roomId; }
     public String getRoomName()
@@ -30,6 +32,8 @@ public class BookingRequestDTO {
     public int getAttendees()               
     { return attendees; }
 
+
+    //setter
     public void setRoomId(Long roomId)             
      { this.roomId = roomId; }
     public void setRoomName(String roomName)       
