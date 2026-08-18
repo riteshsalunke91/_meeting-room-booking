@@ -1,6 +1,8 @@
 package com.example.meeting_room_booking.model;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+
 import java.time.LocalDateTime;
 
 @Entity
