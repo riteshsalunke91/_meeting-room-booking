@@ -1,9 +1,6 @@
 package com.example.meeting_room_booking.dto;
 
 public class LoginResponseDTO {
-
-
-    
     private Long id;
     private String firstName;
     private String lastName;

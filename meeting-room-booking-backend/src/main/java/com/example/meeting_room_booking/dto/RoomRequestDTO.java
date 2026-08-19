@@ -37,3 +37,5 @@ public class RoomRequestDTO {
     public void setDescription(String description)  
     { this.description = description; }
 }
+
+
