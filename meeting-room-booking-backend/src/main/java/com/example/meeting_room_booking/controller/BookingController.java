@@ -11,10 +11,10 @@ import java.util.Map;
 @RequestMapping("/api/bookings")
 @CrossOrigin(origins = "http://localhost:5173")
 public class BookingController {
-
     private final BookingService bookingService;
 
-    public BookingController(BookingService bookingService) {
+    public BookingController(BookingService bookingService)
+    {
         this.bookingService = bookingService;
     }
 
