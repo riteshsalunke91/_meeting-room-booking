@@ -49,3 +49,5 @@ public class LoginResponseDTO {
     public void setMemberSince(String memberSince)  
     { this.memberSince = memberSince; }
 }
+
+
