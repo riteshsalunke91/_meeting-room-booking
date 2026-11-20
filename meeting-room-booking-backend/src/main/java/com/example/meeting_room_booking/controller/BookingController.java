@@ -1,56 +1,3 @@
-
-// package com.example.meeting_room_booking.controller;
-
-// import com.example.meeting_room_booking.dto.BookingRequestDTO;
-// import com.example.meeting_room_booking.service.BookingService;
-// import org.springframework.http.ResponseEntity;
-// import org.springframework.web.bind.annotation.*;
-// import java.util.Map;
-
-// @RestController
-// @RequestMapping("/api/bookings")
-// @CrossOrigin(origins = "http://localhost:5173")
-// public class BookingController {
-//     private final BookingService bookingService;
-
-//     public BookingController(BookingService bookingService)
-//     {
-//         this.bookingService = bookingService;
-//     }
-
-//     @GetMapping
-//     public ResponseEntity<?> getAll() {
-//         return ResponseEntity.ok(
-//             Map.of("data", bookingService.getAllBookings())
-//         );
-//     }
-
-//     @GetMapping("/user/{userId}")
-//     public ResponseEntity<?> getByUser(@PathVariable Long userId) {
-//         return ResponseEntity.ok(
-//             Map.of("data", bookingService.getBookingsByUser(userId))
-//         );
-//     }
-
-
-//     @PostMapping
-// public ResponseEntity<?> create(@RequestBody BookingRequestDTO request) {
-//     return ResponseEntity.ok(Map.of("data", bookingService.createBooking(request)));
-// }
-
-//     @DeleteMapping("/{id}")
-//     public ResponseEntity<?> cancel(@PathVariable Long id) {
-//         try {
-//             return ResponseEntity.ok(
-//                 Map.of("data", bookingService.cancelBooking(id))
-//             );
-//         } catch (Exception e) {
-//             return ResponseEntity.badRequest()
-//                 .body(Map.of("message", e.getMessage()));
-//         }
-//     }
-// }
-
 package com.example.meeting_room_booking.controller;
 
 import com.example.meeting_room_booking.dto.BookingRequestDTO;
@@ -66,7 +13,8 @@ import java.util.Map;
 @RequestMapping("/api/bookings")
 @CrossOrigin(origins = {
     "http://localhost:5173",
-    "http://localhost:5174",   // ← your React port
+    "http://localhost:5174",
+    "http://localhost:5175",
     "http://localhost:3000"
 })
 public class BookingController {
@@ -87,7 +35,7 @@ public class BookingController {
         ));
     }
 
-    // GET /api/bookings/user/1  — User own bookings
+    // GET /api/bookings/user/{userId}  — User own bookings
     @GetMapping("/user/{userId}")
     public ResponseEntity<?> getByUser(@PathVariable Long userId) {
         List<BookingResponseDTO> bookings = bookingService.getBookingsByUser(userId);
@@ -115,11 +63,10 @@ public class BookingController {
         }
     }
 
-    // DELETE /api/bookings/1  — Cancel booking
+    // DELETE /api/bookings/{id}  — Cancel booking
     @DeleteMapping("/{id}")
     public ResponseEntity<?> cancel(@PathVariable Long id) {
         try {
-            // ✅ Fixed: cancelBooking now returns String
             String message = bookingService.cancelBooking(id);
             return ResponseEntity.ok(Map.of(
                 "success", true,

@@ -8,19 +8,21 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/auth")
-@CrossOrigin(origins = "http://localhost:5173")
+@CrossOrigin(origins = {
+    "http://localhost:5173",
+    "http://localhost:5174",
+    "http://localhost:5175",
+    "http://localhost:3000"
+})
 public class AuthController {
 
     private final AuthService authService;
 
-    // Constructor injection — NO Lombok
     public AuthController(AuthService authService) {
         this.authService = authService;
     }
 
-    
     // POST /api/auth/register
-    
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody RegisterRequestDTO request) {
         try {
@@ -33,9 +35,7 @@ public class AuthController {
         }
     }
 
-    
     // POST /api/auth/login
-    
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequestDTO request) {
         try {
@@ -48,24 +48,20 @@ public class AuthController {
         }
     }
 
-    
     // POST /api/auth/logout
-    
     @PostMapping("/logout")
     public ResponseEntity<?> logout(@RequestBody LogoutRequestDTO request) {
         return ResponseEntity.ok(Map.of(
             "message", "Logged out successfully",
-            "email",   request.getEmail()
+            "email",   request != null && request.getEmail() != null ? request.getEmail() : ""
         ));
     }
 
-    
-    // GET /api/auth/user/{id}   ← FIXED
-    
+    // GET /api/auth/user/{id}
     @GetMapping("/user/{id}")
     public ResponseEntity<?> getUser(@PathVariable Long id) {
         try {
-            LoginResponseDTO user = authService.getUserById(id); // ← fixed
+            LoginResponseDTO user = authService.getUserById(id);
             return ResponseEntity.ok(Map.of("data", user));
         } catch (Exception e) {
             return ResponseEntity.status(404)
@@ -73,9 +69,7 @@ public class AuthController {
         }
     }
 
-    
     // PUT /api/auth/user/{id}
-    
     @PutMapping("/user/{id}")
     public ResponseEntity<?> updateUser(
             @PathVariable Long id,

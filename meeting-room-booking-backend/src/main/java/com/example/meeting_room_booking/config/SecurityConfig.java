@@ -1,6 +1,3 @@
-
-
-
 package com.example.meeting_room_booking.config;
 
 import org.springframework.context.annotation.Bean;
@@ -33,11 +30,12 @@ public class SecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
 
-        // ✅ Allow your React frontend ports
+        // Allow React frontend ports
         config.setAllowedOrigins(List.of(
-            "http://localhost:5173",  // Vite
-            "http://localhost:5174",  // Vite alternate ← your screenshot shows 5174
-            "http://localhost:3000"   // CRA
+            "http://localhost:5173",
+            "http://localhost:5174",
+            "http://localhost:5175",
+            "http://localhost:3000"
         ));
 
         config.setAllowedMethods(List.of(
@@ -48,7 +46,7 @@ public class SecurityConfig {
         config.setAllowCredentials(false);
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/api/**", config);
+        source.registerCorsConfiguration("/**", config);
         return source;
     }
 }

@@ -1,5 +1,3 @@
-
-
 package com.example.meeting_room_booking.controller;
 
 import com.example.meeting_room_booking.dto.RoomRequestDTO;
@@ -10,7 +8,12 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/rooms")
-@CrossOrigin(origins = "http://localhost:5173")
+@CrossOrigin(origins = {
+    "http://localhost:5173",
+    "http://localhost:5174",
+    "http://localhost:5175",
+    "http://localhost:3000"
+})
 public class RoomController {
 
     private final RoomService roomService;
